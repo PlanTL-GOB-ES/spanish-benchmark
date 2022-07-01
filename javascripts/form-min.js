@@ -1,0 +1,1 @@
+function submit_form(s){$.ajax({url:"http://localhost:3000/api/results",type:"POST",data:new FormData($("#evaluation_form")[0]),processData:!1,contentType:!1,success:submit_success,error:submit_error})}function submit_success(){alert("Success!")}function submit_error(s){console.error(s)}
