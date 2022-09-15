@@ -21,35 +21,50 @@ block content
             p To submit data fill the next form:
             br
             form#evaluation_form
-                div.form-group
+                div.form-group.has-error#emailDiv
                     label(for='email') Mail:
-                    input.form-control(type='email' id='email' name='email' placeholder='example@example.com' required)
-                div.form-group
+                    input.form-control(type='email' id='email' name='email' placeholder='example@example.com' onchange='checkMail()' required)
+                div.form-group.has-error#modelNameDiv
                     label(for='modelName') Model name:
-                    input.form-control(type='text' name='modelName' placeholder='Model Name' required)
-                div.form-group
+                    input.form-control(type='text' name='modelName' placeholder='Model Name' onchange='checkText(this)' required)
+                div.form-group.has-error#researchGroupDiv
                     label(for='researchGroup') Research Group:
-                    input.form-control(type='text' id='researchGroup' name='researchGroup' placeholder='e.g: BSC' required)
-                div.form-group
+                    input.form-control(type='text' id='researchGroup' name='researchGroup' placeholder='e.g: BSC' onchange='checkText(this)' required)
+                div.form-group.has-error#paperLinkDiv
                     label(for='paperLink') Paper Link
-                    input.form-control(type='url' id='paperLink' name='paperLink' placeholder='Where is the paper (if any)')
+                    input.form-control(type='url' id='paperLink' name='paperLink' placeholder='Where is the paper (if any)' onchange='checkLink()')
                 hr
-                div.form-group
-                    label Upload Test 1
-                    input(type='file' name='task1' id='task1')
-                div.form-group
-                    label Upload Test 2
-                    input(type='file' name='task2' id='task2')
-                div.form-group
-                    label Upload Test 3
-                    input(type='file' name='task3' id='task3')
-                div.form-group
-                    label Upload Test 4
-                    input(type='file' name='task4' id='task4')
-                div.form-group
-                    label Upload Test 5
-                    input(type='file' name='task5' id='task5')
+                div.form-group.has-error#conllNercDiv
+                    label Upload CoNLL-NERC
+                    input(type='file' name='conll' id='conll' onchange='checkFile(this)' required)
+                div.form-group.has-error#capitelNercDiv
+                    label Upload CAPITEL-NERC
+                    input(type='file' name='capiter_nerc' id='capiter_nerc' onchange='checkFile(this)' required)
+                div.form-group.has-error#udPosDiv
+                    label Upload UD-POS
+                    input(type='file' name='ud_pos' id='ud_pos')
+                div.form-group.has-error#capitelPosDiv
+                    label Upload CAPITEL-POS
+                    input(type='file' name='capitel_pos' id='capitel_pos' onchange='checkFile(this)' required)
+                div.form-group.has-error#mldocDiv
+                    label Upload MLDoc
+                    input(type='file' name='mldoc' id='mldoc' onchange='checkFile(this)' required)
+                div.form-group.has-error#pawsxDiv
+                    label Upload PAWS-X
+                    input(type='file' name='pawsx' id='pawsx' onchange='checkFile(this)' required)
+                div.form-group.has-error#stsDiv
+                    label Upload STS
+                    input(type='file' name='sts' id='sts' onchange='checkFile(this)' required)
+                div.form-group.has-error#sqacDiv
+                    label Upload SQAC
+                    input(type='file' name='sqac' id='sqac' onchange='checkFile(this)' required)
+                div.form-group.has-error#winogradDiv
+                    label Upload Winograd
+                    input(type='file' name='winograd' id='winograd' onchange='checkFile(this)' required)
+                div.form-group.has-error#xnliDiv
+                    label Upload XNLI
+                    input(type='file' name='xnli' id='xnli' onchange='checkFile(this)' required)
                 hr
-                input.submitButton(type='button' value='Submit' onclick="submit_form()")
+                input.submitButton(type='button' value='Submit' onclick="submitForm()")
 
 

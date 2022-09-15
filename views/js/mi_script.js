@@ -13,7 +13,22 @@ function tableSuccess (d) {
   const arr = d.map((element) => {
     return [element.email, element.modelName, element.researchGroup, element.paperLink, element.task1, element.task2, element.task3, element.task4, element.task5]
   })
-  const headers = ['Rank', 'Model', 'Group', 'Paper', 'Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5']
+  const headers = [
+    'Rank',
+    'Model',
+    'Group',
+    'Paper',
+    'CoNLL-NERC (F1)',
+    'CAPITEL-NERC (F1)',
+    'UD-POS (F1)',
+    'CAPITEL-POS (F1)',
+    'MLDoc (F1)',
+    'PAWS-X (F1)',
+    'STS (Comb.)',
+    'SQAC (F1)',
+    'WINOGRAD',
+    'XNLI (Acc.)'
+  ]
 
   let innerTable = '<table class="table performanceTable">'
   innerTable += '<tr>'
