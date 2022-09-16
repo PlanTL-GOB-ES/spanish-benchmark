@@ -59,7 +59,7 @@ function submitForm (e) {
   if (!$('#evaluation_form div').hasClass('has-error')) {
     $('#submit_button').val('Submit')
     $.ajax({
-      //url: 'https://bsclsaina01.bsc.es/clubapi/results',
+      // url: 'https://bsclsaina01.bsc.es/clubapi/results',
       url: 'http://localhost:3000/api/results',
       type: 'POST',
       data: formData,
