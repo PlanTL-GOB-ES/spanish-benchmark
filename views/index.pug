@@ -1,0 +1,39 @@
+extends layout
+
+block title
+  title The Spanish Evaluation Benchmark
+
+block description
+  meta(name='description', content='The Spaish Evaluation Benchmark (EvalES) is a new reading comprehension dataset, consisting of questions posed by crowdworkers on a set of Wikipedia articles, where the answer to every question is a segment of text, or span, from the corresponding reading passage. With 100,000+ question-answer pairs on 500+ articles, SQuAD is significantly larger than previous reading comprehension datasets.')
+
+block extralinks
+  link(rel='stylesheet', href='./stylesheets/index.css')
+  script(async defer src="https://buttons.github.io/buttons.js")
+  script(src="./javascripts/mi_script.js")
+
+
+block content
+  .cover#contentCover
+    .container
+      .row
+        .col-md-15
+          .infoCard
+            .infoBody
+              .infoHeadline
+                h2 Leaderboard
+              p.spaced EvalES tests the ability of a system in the Spanish language. Below are the results of the different models.
+              div#leaderboard.table-responsive
+        .col-md-15
+          .infoCard
+            .infoBody
+              .infoHeadline
+                h2 What is EvalES?
+              p The EvalES benchmark consists of 10 tasks: Text Classification (MLDoc), Named Entity Recognition and Classification (NERC), Paraphrase Identification (PAWS-X), Part-of-Speech Tagging (UD-POS), Semantic Textual Similarity (STS), Textual Entailment (XNLI), Question Answering (QA) and Winograd.
+              h2 Have Questions?
+              p 
+                | Ask us questions at    
+                a(href="mailto:plantl-gob-es@bsc.es") plantl-gob-es@bsc.es
+                | .
+            .infoSubheadline
+              include includes/tweet
+              include includes/github

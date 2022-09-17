@@ -1,2 +1,17 @@
+<<<<<<< HEAD
 node_modules
 spanish-benchmark
+=======
+node_modules/
+spanish-benchmark/
+.publish/
+bower_components/
+*.DS_Store
+codalab-cli/
+development.json
+saved.html
+results*.json
+.idea
+package-lock.json
+yarn.lock
+>>>>>>> master
