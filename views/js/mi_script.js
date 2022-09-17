@@ -1,6 +1,6 @@
 function obtainTables () {
   $.ajax({
-    url: 'http://129.151.225.145:3000/api/tables',
+    url: 'https://plantl.api.aina.cf/evalesapi/tables',
     dataType: 'json',
     // contentType: "application/json",
     success: tableSuccess,
