@@ -1,0 +1,1 @@
+function ready(){let n;if(document.URL.split("#")[1]){if("fixed"!==(n=$("div.navbar")).css("position"))return;$(window).one("scroll",function(){window.scrollBy(0,-n.height()-20)})}}document.addEventListener("DOMContentLoaded",ready);
