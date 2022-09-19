@@ -12,7 +12,7 @@ block extralinks
 block extrascripts
 
 mixin fill_text(texts)
-    each text, title in texts
+    each element in texts
       div.datasetHolder(id=element.id)
         h3 #{element.title}
         p #{element.text}
