@@ -69,7 +69,7 @@ function tableSuccess (d) {
     if (header > 3) {
       innerTable += '<th><a href="datasets.html#' + idHref[header].toLowerCase() + '">' + headers[header]
     } else {
-      innerTable += '<th><a href="datasets.html#' + idHref[header].toLowerCase() + '">' + headers[header]
+      innerTable += '<th>' + headers[header]
     }
   })
 
