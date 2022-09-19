@@ -10,9 +10,6 @@ function obtainTables () {
 
 function tableSuccess (d) {
   console.log(d)
-  // const arr = d.map((element) => {
-  //   return [element.email, element.modelName, element.researchGroup, element.paperLink, element.task1, element.task2, element.task3, element.task4, element.task5]
-  // })
 
   const arr = d.map((element) => {
     return [
@@ -29,27 +26,9 @@ function tableSuccess (d) {
       element.sts.Combined,
       element.sqac.F1,
       // /\d+\.\d{2}/.exec(element.winograd.F1),
-      element.xnli.Accuracy,
-    //   /\d+\.\d{2}/.exec(element.STS_ca.combined_score),
-    //   /\d+\.\d{2}/.exec(element.TeCla.Accuracy),
-    //   /\d+\.\d{2}/.exec(element.TECa.Accuracy),
-    //   /\d+\.\d{2}/.exec(element.CatalanQA_results.f1) + '/' + /\d+\.\d{2}/.exec(element.CatalanQA_results.exact),
-    //   /\d+\.\d{2}/.exec(element.XQuAD_Ca.f1) + '/' + /\d+\.\d{2}/.exec(element.XQuAD_Ca.exact)
+      element.xnli.Accuracy
     ]
-    // return {email: element.email}
-    // return {
-    // email: element.email,
-    // modelName: element.modelName,
-    // researchGroup: element.researchGroup,
-    // paperLink: element.paperLink,
-    // task1: element.task1,
-    // task2: element.task2,
-    // task3: element.task3,
-    // task4: element.task4,
-    // task5: element.task5
-    // }
   })
-
 
   const headers = [
     'Rank',
@@ -68,10 +47,30 @@ function tableSuccess (d) {
     'XNLI (Acc.)'
   ]
 
+  const idHref = [
+    '',
+    '',
+    '',
+    '',
+    'nerc',
+    'nerc',
+    'pos',
+    'pos',
+    'mldoc',
+    'pawsx',
+    'sts',
+    'qa',
+    'xnli'
+  ]
+
   let innerTable = '<table class="table performanceTable">'
   innerTable += '<tr>'
   $(headers).each(function (header) {
-    innerTable += '<th>' + headers[header]
+    if (header > 3) {
+      innerTable += '<th><a href="datasets.html#' + idHref[header].toLowerCase() + '">' + headers[header]
+    } else {
+      innerTable += '<th><a href="datasets.html#' + idHref[header].toLowerCase() + '">' + headers[header]
+    }
   })
 
   $(arr).each(function (elem) {
@@ -85,7 +84,7 @@ function tableSuccess (d) {
           innerTable += '<td><a target="_blank" href=' + arr[elem][innerElem] + '><span class="material-symbols-outlined">open_in_new'
           break
         case 2:
-          innerTable += '<td>' + arr[elem][innerElem] //+ '<br>' + arr[elem][0]
+          innerTable += '<td>' + arr[elem][innerElem] // + '<br>' + arr[elem][0]
           break
         default:
           innerTable += '<td>' + arr[elem][innerElem]

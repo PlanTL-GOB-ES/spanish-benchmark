@@ -13,10 +13,9 @@ block extrascripts
 
 mixin fill_text(texts)
     each text, title in texts
-      div.datasetHolder
-        p
-          b #{title}
-        p #{text}
+      div.datasetHolder(id=element.id)
+        h3 #{element.title}
+        p #{element.text}
 
 block content
   .cover#contentCover
