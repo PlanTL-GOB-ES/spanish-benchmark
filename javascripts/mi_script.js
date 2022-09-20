@@ -52,14 +52,14 @@ function tableSuccess (d) {
     '',
     '',
     '',
-    'nerc',
-    'nerc',
-    'pos',
-    'pos',
+    'conll-nerc',
+    'capitel-nerc',
+    'ud-pos',
+    'capitel-pos',
     'mldoc',
-    'pawsx',
+    'paws-x',
     'sts',
-    'qa',
+    'sqac',
     'xnli'
   ]
 
