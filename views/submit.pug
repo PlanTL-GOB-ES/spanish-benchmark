@@ -45,7 +45,7 @@ block content
                     input(type='file' name='CAPITEL-POS' id='CAPITEL-POS' onchange='checkFile(this)' required)
                 div.form-group.has-error#udPosDiv
                     label Upload UD-POS
-                    input(type='file' name='UD-POS' id='ud_pos')
+                    input(type='file' name='UD-POS' id='UD_POS' onchange='checkFile(this)' required)
                 div.form-group.has-error#mldocDiv
                     label Upload MLDoc
                     input(type='file' name='MLDoc' id='MLDoc' onchange='checkFile(this)' required)
@@ -58,9 +58,6 @@ block content
                 div.form-group.has-error#sqacDiv
                     label Upload SQAC
                     input(type='file' name='SQAC' id='SQAC' onchange='checkFile(this)' required)
-                div.form-group.has-error#winogradDiv
-                    label Upload Winograd
-                    input(type='file' name='WINOGRAD' id='WINOGRAD' onchange='checkFile(this)' required)
                 div.form-group.has-error#xnliDiv
                     label Upload XNLI
                     input(type='file' name='XNLI' id='XNLI' onchange='checkFile(this)' required)
