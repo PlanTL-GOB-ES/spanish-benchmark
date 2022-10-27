@@ -56,7 +56,7 @@ function submitForm (e) {
   const formData = new FormData($('#evaluation_form')[0])
   // let mailValid = checkMail(formData.get('email'))
   // let linkValid = checkLink(formData.get('paperLink'))
-  if (!$('#evaluation_form div').hasClass('has-error')) {
+  if (!$('#evaluation_form div').hasClass('has-error') && $("#dataPol").is(":checked")) {
     $('#submit_button').val('Submit')
     $.ajax({
       // url: 'https://bsclsaina01.bsc.es/clubapi/results',
