@@ -148,18 +148,31 @@ pre {
   display: none;
 }
 .submitButton {
-  width: 15%;
-  background-color: #4f9db1;
-  color: #fff !important;
+  width: 20%;
+  background-color: #136b82;
+  color: #000;
   text-align: center;
-  border: 2px solid #4f9db1;
+  border: 2px solid #136b82;
   padding: 15px;
   border-radius: 30px;
   transition: all 0.5s;
+  min-width: 75px;
 }
 .submitButton:hover {
-  background-color: #136b82;
-  border-color: #136b82;
+  background-color: #4f9db1;
+  border-color: #4f9db1;
+  color: #fff;
+}
+@media (max-width: 734px) {
+  .submitButton {
+    width: 100%;
+  }
+}
+#submitResults {
+  text-align: right;
+}
+#sampleFiles {
+  padding-bottom: 2%;
 }
 .datasetHolder {
   margin: 20px 0;
@@ -192,6 +205,10 @@ pre {
 }
 #contentCover p.spaced {
   padding-bottom: 20px;
+}
+#sendResults {
+  color: #4f9db1;
+  text-align: right;
 }
 #leaderboard {
   overflow: auto;

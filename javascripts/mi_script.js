@@ -27,10 +27,10 @@ function tableSuccess (d) {
 	})
 
 	const headers = [
-		// 'Rank',
+		'Rank',
 		'Model',
 		'Submitted by',
-		'Paper',
+		'URL',
 		'Score',
 		'CoNLL-NERC (F1)',
 		'UD-POS (F1)',
@@ -40,9 +40,8 @@ function tableSuccess (d) {
 		'SQAC (F1)',
 		'XNLI (Acc.)'
 	]
-
 	const idHref = [
-		// '',
+		'',
 		'',
 		'',
 		'',
@@ -59,24 +58,21 @@ function tableSuccess (d) {
 	let innerTable = '<table id="table" class="performanceTable table">'
 	innerTable += '<thead><tr>'
 	$(headers).each(function (header) {
-		if (header > 3) {
+		if (idHref[header] != '') {
 			innerTable += '<th><a href="datasets.html#' + idHref[header].toLowerCase() + '">' + headers[header] + "</a></th>"
-		} else if (header === 2){
+		} else if (headers[header] === 'Paper'){
 			innerTable += '<th style="width:30px;">' + headers[header] + "</th>"
 		} else {
 			innerTable += '<th>' + headers[header] + "</th>"
 		}
 	})
 	innerTable += '</tr></thead><tbody>'
-
 	$(arr).each(function (elem) {
 		innerTable += '<tr>'
+		innerTable += '<td>' + (elem + 1) + '</td>'
 		$(arr[elem]).each(function (innerElem) {
 			switch (innerElem) {
-				// case 0:
-				//	innerTable += '<td>' + (elem + 1)
-				//	break
-				case 2: // +1 if rank enabled
+				case 2:
 					if (arr[elem][innerElem] != '') {
 						innerTable += '<td><a target="_blank" href=' + arr[elem][innerElem] + '><span class="material-symbols-outlined">open_in_new</span></a></td>'
 					} else {
@@ -95,9 +91,9 @@ function tableSuccess (d) {
 	$('#table').DataTable({
 		paging: false,
 		autoWidth: false,
-		order: [[3, "desc"]],
+		order: [[0, "asc"]],
 		columnDefs: [
-			{ targets: [0, 1, 2], orderable: false },
+			{ targets: [1, 2, 3], orderable: false },
 			{ targets: "_all", className: 'dt-center' },
 			{ targets: "_all", orderSequence: ['desc', 'asc'] }
 		],
@@ -111,6 +107,4 @@ function tableError (e) {
 
 $(document).ready(() => {
 	obtainTables()
-
-	// console.log(arr)
 })
