@@ -1,30 +1,34 @@
 extends layout
 
 block title
-  title Datasets - The Spanish Evaluation Benchmark
+	title Datasets - The Spanish Evaluation Benchmark
 
 block description
-  meta(name='description', content='The Spaish Evaluation Benchmark (EvalES) is a new reading comprehension dataset, consisting of questions posed by crowdworkers on a set of Wikipedia articles, where the answer to every question is a segment of text, or span, from the corresponding reading passage. With 100,000+ question-answer pairs on 500+ articles, SQuAD is significantly larger than previous reading comprehension datasets.')
+	meta(name='description', content='The Spaish Evaluation Benchmark (EvalES) is a new reading comprehension dataset, consisting of questions posed by crowdworkers on a set of Wikipedia articles, where the answer to every question is a segment of text, or span, from the corresponding reading passage. With 100,000+ question-answer pairs on 500+ articles, SQuAD is significantly larger than previous reading comprehension datasets.')
 
 block extralinks
-  link(rel='stylesheet', href='./stylesheets/index.css')
+	link(rel='stylesheet', href='./stylesheets/index.css')
 
 block extrascripts
-    script(src="./javascripts/navbar-prevent-on-html-link.js")
+	script(src="./javascripts/navbar-prevent-on-html-link.js")
 
 mixin fill_text(texts)
-    each element in texts
-      div.datasetHolder(id=element.id)
-        h3 #{element.title}
-        p #{element.text}
+	each element in texts
+		div.datasetHolder(id=element.id)
+			if element.link
+				h3
+					a(href=element.link target="_blank") #{element.title}
+			else
+				h3 #{element.title}
+			p #{element.text}
 
 block content
-  .cover#contentCover
-    .container
-      .row
-        .col-md-15
-          .infoCard
-            .infoBody
-              .infoHeadline
-              h2 Datasets
-              +fill_text(test1)
+	.cover#contentCover
+		.container
+			.row
+				.col-md-15
+					.infoCard
+						.infoBody
+							.infoHeadline
+								h2 Datasets
+								+fill_text(test1)
