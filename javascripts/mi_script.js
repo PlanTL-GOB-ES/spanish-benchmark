@@ -9,48 +9,45 @@ function obtainTables () {
 }
 
 function tableSuccess (d) {
-	console.log('d:', d)
+	// console.log('d:', d)
 	const arr = d.map((element) => {
 		return [
 			element.modelName,
 			element.researchGroup,
-			element.paperLink,
-			element.conll_nerc.F1,
-			element.capitel_nerc.F1,
-			element.ud_pos.F1,
-			element.capitel_pos.F1,
-			element.mldoc.F1,
-			element.paws_x.F1,
-			element.sts.Combined,
-			element.sqac.F1,
-			// /\d+\.\d{2}/.exec(element.winograd.F1),
-			element.xnli.Accuracy
+			element.url,
+			Number(Number(element.sum) / Number(7)).toPrecision(4).toString(),
+			Number(element.conll_nerc.F1).toPrecision(4).toString(),
+			Number(element.ud_pos.F1).toPrecision(4).toString(),
+			Number(element.mldoc.F1).toPrecision(4).toString(),
+			Number(element.paws_x.F1).toPrecision(4).toString(),
+			Number(element.sts.Combined).toPrecision(4).toString(),
+			Number(element.sqac.F1).toPrecision(4).toString(),
+			Number(element.xnli.Accuracy).toPrecision(4).toString()
 		]
 	})
 
 	const headers = [
+		// 'Rank',
 		'Model',
 		'Submitted by',
 		'Paper',
+		'Score',
 		'CoNLL-NERC (F1)',
-		'CAPITEL-NERC (F1)',
 		'UD-POS (F1)',
-		'CAPITEL-POS (F1)',
 		'MLDoc (F1)',
 		'PAWS-X (F1)',
 		'STS (Comb.)',
 		'SQAC (F1)',
-		// 'WINOGRAD',
 		'XNLI (Acc.)'
 	]
 
 	const idHref = [
+		// '',
+		'',
 		'',
 		'',
 		'',
 		'nerc',
-		'nerc',
-		'pos',
 		'pos',
 		'mldoc',
 		'pawsx',
@@ -59,11 +56,13 @@ function tableSuccess (d) {
 		'xnli'
 	]
 
-	let innerTable = '<table id="table">'
+	let innerTable = '<table id="table" class="performanceTable table">'
 	innerTable += '<thead><tr>'
 	$(headers).each(function (header) {
-		if (header > 2) {
+		if (header > 3) {
 			innerTable += '<th><a href="datasets.html#' + idHref[header].toLowerCase() + '">' + headers[header] + "</a></th>"
+		} else if (header === 2){
+			innerTable += '<th style="width:30px;">' + headers[header] + "</th>"
 		} else {
 			innerTable += '<th>' + headers[header] + "</th>"
 		}
@@ -77,7 +76,7 @@ function tableSuccess (d) {
 				// case 0:
 				//	innerTable += '<td>' + (elem + 1)
 				//	break
-				case 2:
+				case 2: // +1 if rank enabled
 					if (arr[elem][innerElem] != '') {
 						innerTable += '<td><a target="_blank" href=' + arr[elem][innerElem] + '><span class="material-symbols-outlined">open_in_new</span></a></td>'
 					} else {
@@ -95,9 +94,12 @@ function tableSuccess (d) {
 	$('#leaderboard').html(innerTable)
 	$('#table').DataTable({
 		paging: false,
-		order: [[3, 'desc'], [4, 'desc'], [5, 'desc'], [6, 'desc'], [7, 'desc'], [8, 'desc'], [9, 'desc'], [10, 'desc'], [11, 'desc']],
+		autoWidth: false,
+		order: [[3, "desc"]],
 		columnDefs: [
-			{ targets: [0, 1, 2], orderable: false }
+			{ targets: [0, 1, 2], orderable: false },
+			{ targets: "_all", className: 'dt-center' },
+			{ targets: "_all", orderSequence: ['desc', 'asc'] }
 		],
 		searching: false
 	});
