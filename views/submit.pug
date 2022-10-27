@@ -1,67 +1,64 @@
 extends layout
 
 block title
-  title The Spanish Evaluation Benchmark
+	title The Spanish Evaluation Benchmark
 
 block description
-  meta(name='description', content='Submitting-related information')
+	meta(name='description', content='Submitting-related information')
 
 block extralinks
-  link(rel='stylesheet', href='./stylesheets/index.css')
-  script(src='./javascripts/form.js')
-  // link(rel='stylesheet', href='./stylesheets/input.css')
+	link(rel='stylesheet', href='./stylesheets/index.css')
+	script(src='./javascripts/form.js')
+	// link(rel='stylesheet', href='./stylesheets/input.css')
 
 block content
-  .cover#contentCover
-    .container
-      .row
-        .infoCard
-         .infoBody
-            h1 Instructions for submitting
-            p To submit data fill the next form:
-            br
-            form#evaluation_form
-                div.form-group.has-error#emailDiv
-                    label(for='email') Mail:
-                    input.form-control(type='email' id='email' name='email' placeholder='example@example.com' onchange='checkMail()' required)
-                div.form-group.has-error#modelNameDiv
-                    label(for='modelName') Model name:
-                    input.form-control(type='text' name='modelName' placeholder='Model Name' onchange='checkText(this)' required)
-                div.form-group.has-error#researchGroupDiv
-                    label(for='researchGroup') Research Group:
-                    input.form-control(type='text' id='researchGroup' name='researchGroup' placeholder='e.g: BSC' onchange='checkText(this)' required)
-                div.form-group#paperLinkDiv
-                    label(for='paperLink') Paper Link
-                    input.form-control(type='url' id='paperLink' name='paperLink' placeholder='Where is the paper (if any)' onchange='checkLink()')
-                hr
-                div.form-group.has-error#conllNercDiv
-                    label Upload CoNLL-NERC
-                    input(type='file' name='CoNLL-NERC' id='CoNLL-NERC' onchange='checkFile(this)' required)
-                div.form-group.has-error#capitelNercDiv
-                    label Upload CAPITEL-NERC
-                    input(type='file' name='CAPITEL-NERC' id='CAPITEL-NERC' onchange='checkFile(this)' required)
-                div.form-group.has-error#capitelPosDiv
-                    label Upload CAPITEL-POS
-                    input(type='file' name='CAPITEL-POS' id='CAPITEL-POS' onchange='checkFile(this)' required)
-                div.form-group.has-error#udPosDiv
-                    label Upload UD-POS
-                    input(type='file' name='UD-POS' id='UD_POS' onchange='checkFile(this)' required)
-                div.form-group.has-error#mldocDiv
-                    label Upload MLDoc
-                    input(type='file' name='MLDoc' id='MLDoc' onchange='checkFile(this)' required)
-                div.form-group.has-error#pawsxDiv
-                    label Upload PAWS-X
-                    input(type='file' name='PAWS-X' id='PAWS-X' onchange='checkFile(this)' required)
-                div.form-group.has-error#stsDiv
-                    label Upload STS
-                    input(type='file' name='STS' id='STS' onchange='checkFile(this)' required)
-                div.form-group.has-error#sqacDiv
-                    label Upload SQAC
-                    input(type='file' name='SQAC' id='SQAC' onchange='checkFile(this)' required)
-                div.form-group.has-error#xnliDiv
-                    label Upload XNLI
-                    input(type='file' name='XNLI' id='XNLI' onchange='checkFile(this)' required)
-                hr
-                input.submitButton(type='button' value='Submit' onclick="submitForm()")
-
-
+	.cover#contentCover
+		.container
+			.row
+				.infoCard
+					.infoBody
+						h1 Instructions for submitting
+						p To submit data fill the next form:
+						br
+						form#evaluation_form
+							div.form-group.has-error#emailDiv
+								label(for='email') Mail:
+								input.form-control(type='email' id='email' name='email' placeholder='example@example.com' onchange='checkMail()' required)
+							div.form-group.has-error#modelNameDiv
+								label(for='modelName') Model name:
+								input.form-control(type='text' name='modelName' placeholder='Model Name' onchange='checkText(this)' required)
+							div.form-group.has-error#researchGroupDiv
+								label(for='researchGroup') Research Group:
+								input.form-control(type='text' id='researchGroup' name='researchGroup' placeholder='e.g: BSC' onchange='checkText(this)' required)
+							div.form-group#paperLinkDiv
+								label(for='paperLink') Paper Link
+								input.form-control(type='url' id='paperLink' name='paperLink' placeholder='Where is the paper (if any)' onchange='checkLink()')
+							hr
+							div.form-group.has-error#conllNercDiv
+								label Upload CoNLL-NERC
+								input(type='file' name='CoNLL-NERC' id='CoNLL-NERC' onchange='checkFile(this)' required)
+							div.form-group.has-error#udPosDiv
+								label Upload UD-POS
+								input(type='file' name='UD-POS' id='UD_POS' onchange='checkFile(this)' required)
+							div.form-group.has-error#mldocDiv
+								label Upload MLDoc
+								input(type='file' name='MLDoc' id='MLDoc' onchange='checkFile(this)' required)
+							div.form-group.has-error#pawsxDiv
+								label Upload PAWS-X
+								input(type='file' name='PAWS-X' id='PAWS-X' onchange='checkFile(this)' required)
+							div.form-group.has-error#stsDiv
+								label Upload STS
+								input(type='file' name='STS' id='STS' onchange='checkFile(this)' required)
+							div.form-group.has-error#sqacDiv
+								label Upload SQAC
+								input(type='file' name='SQAC' id='SQAC' onchange='checkFile(this)' required)
+							div.form-group.has-error#xnliDiv
+								label Upload XNLI
+								input(type='file' name='XNLI' id='XNLI' onchange='checkFile(this)' required)
+							hr
+							div.checkbox#privacyPolicy
+								label
+									input(type='checkbox' name='dataPol' id='dataPol')
+									| I accept the 
+									a(href="https://www.bsc.es/legal-notice") data policy*
+							input.submitButton(type='button' value='Submit' onclick="submitForm()")

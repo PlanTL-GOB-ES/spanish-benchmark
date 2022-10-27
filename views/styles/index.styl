@@ -6,23 +6,34 @@
 @require 'layout/dataset'
 
 #contentCover
-  .performanceTable
-    margin 10px 0px
-    .institution
-      font-style italic
-      font-weight 300
-    .date
-      font-weight normal
-    tr.human-row
-      background: whitesmoke
-    td, th
-      text-align center
-      max-width 250px
-  ul.list-inline
-    margin-left 0px
-    text-align center
-    li
-      padding-left 2px
-      padding-right 2px  
-  p.spaced
-    padding-bottom 20px
+	.performanceTable
+		margin 10px 0px
+		.institution
+			font-style italic
+			font-weight 300
+		.date
+			font-weight normal
+		tr.human-row
+			background: whitesmoke
+		tbody td, thead th
+			text-align center
+			max-width 250px
+	ul.list-inline
+		margin-left 0px
+		text-align center
+		li
+			padding-left 2px
+			padding-right 2px
+	p.spaced
+		padding-bottom 20px
+	
+
+#leaderboard
+	overflow auto
+table.dataTable thead > tr > th.sorting::before, table.dataTable thead > tr > th.sorting::after, table.dataTable thead > tr > th.sorting_asc::before, table.dataTable thead > tr > th.sorting_asc::after, table.dataTable thead > tr > th.sorting_desc::before, table.dataTable thead > tr > th.sorting_desc::after, table.dataTable thead > tr > th.sorting_asc_disabled::before, table.dataTable thead > tr > th.sorting_asc_disabled::after, table.dataTable thead > tr > th.sorting_desc_disabled::before, table.dataTable thead > tr > th.sorting_desc_disabled::after, table.dataTable thead > tr > td.sorting::before, table.dataTable thead > tr > td.sorting::after, table.dataTable thead > tr > td.sorting_asc::before, table.dataTable thead > tr > td.sorting_asc::after, table.dataTable thead > tr > td.sorting_desc::before, table.dataTable thead > tr > td.sorting_desc::after, table.dataTable thead > tr > td.sorting_asc_disabled::before, table.dataTable thead > tr > td.sorting_asc_disabled::after, table.dataTable thead > tr > td.sorting_desc_disabled::before, table.dataTable thead > tr > td.sorting_desc_disabled::after
+	opacity 0.4
+	line-height 0.6
+	font-size 1.2em
+
+table.dataTable thead > tr > th.sorting_asc::before, table.dataTable thead > tr > th.sorting_desc::after, table.dataTable thead > tr > td.sorting_asc::before, table.dataTable thead > tr > td.sorting_desc::after
+	opacity 1
