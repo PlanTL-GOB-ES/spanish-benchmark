@@ -91,9 +91,9 @@ function tableSuccess (d) {
 	$('#table').DataTable({
 		paging: false,
 		autoWidth: false,
-		order: [[3, "desc"]],
+		order: [[0, "asc"]],
 		columnDefs: [
-			{ targets: [0, 1, 2], orderable: false },
+			{ targets: [1, 2, 3], orderable: false },
 			{ targets: "_all", className: 'dt-center' },
 			{ targets: "_all", orderSequence: ['desc', 'asc'] }
 		],
