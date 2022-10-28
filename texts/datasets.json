@@ -1,4 +1,9 @@
 {
+	"description":{
+		"title": "What is EvalEs?",
+		"text":"The EvalES benchmark consists of 7 tasks: Named Entity Recognition and Classification (CoNLL-NERC), Part-of-Speech Tagging (UD-POS), Text Classification (MLDoc), Paraphrase Identification (PAWS-X), Semantic Textual Similarity (STS), Question Answering (SQAC), and Textual Entailment (XNLI). \n \n For questions or comments, please contact us at plantl-gob-es@bsc.es",
+		"id": "description"
+	},
 	"co-nerc":{
 		"title": "CoNLL-NERC",
 		"text":"CoNLL-NERC is the Spanish dataset of the CoNLL-2002 Shared Task (Tjong Kim Sang, 2002). The dataset is annotated with four types of named entities --persons, locations, organizations, and other miscellaneous entities-- formatted in the standard Beginning-Inside-Outside (BIO) format. The corpus consists of 8,324 train sentences with 19,400 named entities, 1,916 development sentences with 4,568 named entities, and 1,518 test sentences with 3,644 named entities.",
