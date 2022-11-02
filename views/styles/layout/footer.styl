@@ -1,21 +1,45 @@
 .footer
-  border none
-  border-radius 0px
-  margin-bottom 0px
-  padding 15px 0px
-  height auto
-  background-color: #fff
-  ul
-    li
-      a
-        font-size 1em
-        color #fff !important
-      a:hover
-        color #eee !important
-  @media(min-width:768px)
-    .rightNav
-      float right
-    .centerNav
-      margin auto
-      display flex
-      flex-flow row-reverse nowrap
+	border none
+	border-radius 0px
+	margin-bottom 0px
+	padding 15px 0px
+	height auto
+	background-color: #fff
+	ul
+		li
+			a
+				font-size 1em
+				color #fff !important
+			a:hover
+				color #eee !important
+	@media(min-width:768px)
+		.rightNav
+			float right
+		.centerNav
+			margin auto
+			display flex
+			flex-flow row-reverse nowrap
+
+.footer-custom-images 
+	padding-bottom: 4em !important;
+	display: flex;
+	place-content: center;
+	align-content: center;
+	flex-flow: row wrap;
+	box-sizing: border-box;
+
+
+.footer-custom-images img:hover 
+	 filter: unset;
+
+
+.footer-custom-images img 
+	max-height: 6em !important;
+	margin: 0.5rem 0 !important;
+	filter: grayscale(100%);
+	width: auto;
+
+
+.footer-custom-images a 
+	margin-right: 3em !important;
+
