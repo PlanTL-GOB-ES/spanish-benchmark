@@ -425,17 +425,20 @@ button:focus {
   flex-flow: row wrap;
   box-sizing: border-box;
 }
-.footer-custom-images img:hover {
-  filter: unset;
-}
 .footer-custom-images img {
   max-height: 6em !important;
   margin: 0.5rem 0 !important;
   filter: grayscale(100%);
   width: auto;
 }
+.footer-custom-images img:hover {
+  filter: unset;
+}
 .footer-custom-images a {
   margin-right: 3em !important;
+}
+.footer-custom-images #bsclogo {
+  max-height: 5.5em !important;
 }
 html,
 body {
