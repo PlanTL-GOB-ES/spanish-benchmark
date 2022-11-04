@@ -59,8 +59,7 @@ function submitForm (e) {
   if (!$('#evaluation_form div').hasClass('has-error') && $("#dataPol").is(":checked")) {
     $('#submit_button').val('Submit')
     $.ajax({
-      // url: 'https://bsclsaina01.bsc.es/clubapi/results',
-      url: 'http://localhost:3000/api/results',
+      url: 'https://bscplantl01.bsc.es/evales/api/results',
       type: 'POST',
       data: formData,
       processData: false,
