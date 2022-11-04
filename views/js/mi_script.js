@@ -1,6 +1,6 @@
 function obtainTables () {
 	$.ajax({
-		url: 'https://plantl.api.aina.cf/evalesapi/tables',
+		url: 'https://bscplantl01.bsc.es/evales/api/tables',
 		dataType: 'json',
 		// contentType: "application/json",
 		success: tableSuccess,
