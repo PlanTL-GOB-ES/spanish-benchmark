@@ -1,13 +1,13 @@
 {
-  "name": "squad-explorer",
+  "name": "eval-es",
   "description": "",
   "main": "gulpfile.js",
   "authors": [
-    "Pranav Rajpurkar"
+    "TeMU-BSC"
   ],
   "license": "ISC",
-  "homepage": "https://github.com/rajpurkar/SQuAD-explorer",
-  "private": true,
+  "homepage": "https://github.com/PlanTL-GOB-ES/spanish-benchmark",
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
