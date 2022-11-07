@@ -31,5 +31,8 @@
   "bugs": {
     "url": "https://github.com/TeMU-BSC/spanish-benchmark/issues"
   },
-  "homepage": "https://github.com/TeMU-BSC/spanish-benchmark"
+  "homepage": "https://github.com/TeMU-BSC/spanish-benchmark",
+  "devDependencies": {
+    "gulp-purgecss": "^5.0.0"
+  }
 }
