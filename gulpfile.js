@@ -34,10 +34,18 @@ gulp.task('purge_styles', function () {
 		.pipe(gulp.dest('./' + build_dir + 'stylesheets'))
 })
 
+gulp.task('purgecss', gulp.series('purge_styles', 'purge_bootstrap'))
+
 gulp.task('image', function () {
   return gulp.src('./views/images/*')
     .pipe(image())
     .pipe(gulp.dest('./' + build_dir + 'images'))
+})
+
+gulp.task('logo', function () {
+	return gulp.src('./views/images/favicon.*')
+		.pipe(image())
+		.pipe(gulp.dest('./' + build_dir))
 })
 
 gulp.task('js', function () {
@@ -86,8 +94,6 @@ gulp.task('deploy', async function () {
     .pipe(ghPages())
 })
 
-gulp.task('purgecss', gulp.series('purge_styles', 'purge_bootstrap'))
-
 gulp.task('generate', gulp.series('bower', 'generate_index', 'generate_submit', 'generate_datasets'))
 
 gulp.task('correct_link_paths', gulp.series('generate'), async function () {
@@ -95,7 +101,6 @@ gulp.task('correct_link_paths', gulp.series('generate'), async function () {
     .pipe(replace(/([^-](?:href|src)=[\'\"]\/)([^\'\"]*)([\'\"])/g, '$1' + build_dir + '$2$3'))
     .pipe(gulp.dest('./' + build_dir))
 })
-
-gulp.task('all', gulp.series('generate', 'correct_link_paths', 'image', 'js', 'css', 'purgecss'))
+gulp.task('all', gulp.series('generate', 'correct_link_paths', 'image', 'logo', 'js', 'css', 'purgecss'))
 gulp.task('default', gulp.series('generate_index', 'generate_submit', 'generate_datasets', 'correct_link_paths', 'js', 'css', 'purgecss'))
 
