@@ -1,56 +1,50 @@
-function checkMail () {
-  const mail = $('#email').val()
-  if (/[\w-]+@\w+\.\w{2,3}/.exec(mail) == null) {
+$('email').blur(() => {
+  const mail = $('#email').val();
+  if (/[\w-]+@\w+\.\w{2,3}/.test(mail)) {
     if ($('#emailDiv > div.help-block').length === 0) {
-      $('#emailDiv').addClass('has-error').append('<div class="help-block">Mail ' + mail + ' is not valid</div>')
+      $('#emailDiv').addClass('has-error').append('<div class="help-block">Mail ' + mail + ' is not valid</div>');
     } else {
-      $('#emailDiv').addClass('has-error').children('div.help-block').text('Mail ' + mail + ' is not valid')
+      $('#emailDiv').addClass('has-error').children('div.help-block').text('Mail ' + mail + ' is not valid');
     }
   } else {
-    $('#emailDiv').removeClass('has-error')
-    $('#emailDiv > div.help-block').remove()
+    $('#emailDiv').removeClass('has-error');
+    $('#emailDiv > div.help-block').remove();
+  }
+})
+
+function checkFile () {
+  if (this.path === '') {
+    if ($('#' + this.id + ' > div.help-block').length === 0) {
+      $('#' + this.id).parent().addClass('has-error').append('<div class="help-block">File is not valid</div>')
+    } else {
+      $('#' + this.id + '').addClass('has-error').children('div.help-block').text('File is not valid')
+    }
+  } else {
+    $('#' + this.id).parent().removeClass('has-error')
+    $('#' + this.id + ' + div.help-block').remove()
   }
 }
 
-function checkLink () {
-  const paperLink = $('#paperLink').val()
-  if (paperLink !== '' && /http[s]?:\/\/[\w-]+\.\w{2,3}[/\w-]*\.?\w{0,4}/.exec(paperLink) == null) {
-    if ($('#paperLinkDiv > div.help-block').length === 0) {
-      $('#paperLinkDiv').addClass('has-error').append('<div class="help-block">Link ' + paperLink + ' is not valid</div>')
+$("input[type=file]").blur(checkFile)
+
+function checkText () {
+  if (this.value === '') {
+    if ($('#' + this.id + ' > div.help-block').length === 0) {
+      $('#' + this.id).parent().addClass('has-error').append('<div class="help-block">Name is not valid</div>')
     } else {
-      $('#paperLinkDiv').addClass('has-error').children('div.help-block').text('Link ' + paperLink + ' is not valid')
+      $('#' + this.id + '').addClass('has-error').children('div.help-block').text('Name is not valid')
     }
   } else {
-    $('#paperLinkDiv').removeClass('has-error')
-    $('#paperLinkDiv > div.help-block').remove()
+    $('#' + this.id).parent().removeClass('has-error')
+    $('#' + this.id + ' + div.help-block').remove()
   }
 }
 
-function checkFile (sender) {
-  if (sender.path === '') {
-    if ($('#' + sender.id + ' > div.help-block').length === 0) {
-      $('#' + sender.id).parent().addClass('has-error').append('<div class="help-block">File is not valid</div>')
-    } else {
-      $('#' + sender.id + '').addClass('has-error').children('div.help-block').text('File is not valid')
-    }
-  } else {
-    $('#' + sender.id).parent().removeClass('has-error')
-    $('#' + sender.id + ' + div.help-block').remove()
-  }
-}
-
-function checkText (sender) {
-  if (sender.value === '') {
-    if ($('#' + sender.id + ' > div.help-block').length === 0) {
-      $('#' + sender.id).parent().addClass('has-error').append('<div class="help-block">Name is not valid</div>')
-    } else {
-      $('#' + sender.id + '').addClass('has-error').children('div.help-block').text('Name is not valid')
-    }
-  } else {
-    $('#' + sender.id).parent().removeClass('has-error')
-    $('#' + sender.id + ' + div.help-block').remove()
-  }
-}
+$("#submit_button").hover(() => {
+	if (!$("input[type=text]").value = '' || !$("input[type=file]").path = '') {
+		$("#submit_button").attr("disabled", false)
+	}
+})
 
 function submitForm (e) {
   const formData = new FormData($('#evaluation_form')[0])
