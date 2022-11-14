@@ -8,8 +8,10 @@ block description
 
 block extralinks
 	link(rel='stylesheet', href='./stylesheets/index.css')
-	script(src='./javascripts/form.js')
 	// link(rel='stylesheet', href='./stylesheets/input.css')
+
+block extrascripts
+	include form_scripts.html
 
 block content
 	.cover#contentCover
@@ -67,4 +69,4 @@ block content
 									a(href="https://www.bsc.es/legal-notice" target="_blank") data policy*
 							div#submitResults
 								p
-									input.submitButton#submit_button(type='button' value='Submit' disabled)
+									input.submitButton#submit_button(type='button' value='Submit')

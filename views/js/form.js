@@ -1,23 +1,26 @@
-$('email').blur(() => {
-  const mail = $('#email').val();
-  if (/[\w-]+@\w+\.\w{2,3}/.test(mail)) {
-    if ($('#emailDiv > div.help-block').length === 0) {
-      $('#emailDiv').addClass('has-error').append('<div class="help-block">Mail ' + mail + ' is not valid</div>');
-    } else {
-      $('#emailDiv').addClass('has-error').children('div.help-block').text('Mail ' + mail + ' is not valid');
-    }
-  } else {
+$('#submit_button').attr('disabled', true)
+
+function checkMail () {
+  if (/[\w-]+@\w+\.\w{2,3}/.test($(this).value)) {
     $('#emailDiv').removeClass('has-error');
     $('#emailDiv > div.help-block').remove();
+  } else {
+    if ($('#emailDiv > div.help-block').length === 0) {
+      $('#emailDiv').addClass('has-error').append('<div class="help-block">Mail ' + $(this).value + ' is not valid</div>');
+    } else {
+      $('#emailDiv').addClass('has-error').children('div.help-block').text('Mail ' + $(this).value + ' is not valid');
+    }
   }
-})
+}
+
+$('#email').blur(checkMail)
 
 function checkFile () {
-  if (this.path === '') {
+  if (this.path === undefined) {
     if ($('#' + this.id + ' > div.help-block').length === 0) {
       $('#' + this.id).parent().addClass('has-error').append('<div class="help-block">File is not valid</div>')
     } else {
-      $('#' + this.id + '').addClass('has-error').children('div.help-block').text('File is not valid')
+      $('#' + this.id).addClass('has-error').children('div.help-block').text('File is not valid')
     }
   } else {
     $('#' + this.id).parent().removeClass('has-error')
@@ -28,21 +31,36 @@ function checkFile () {
 $("input[type=file]").blur(checkFile)
 
 function checkText () {
-  if (this.value === '') {
+  if ($(this).value === undefined || $(this).value == '') {
     if ($('#' + this.id + ' > div.help-block').length === 0) {
-      $('#' + this.id).parent().addClass('has-error').append('<div class="help-block">Name is not valid</div>')
+      $(this).parent().addClass('has-error').append('<div class="help-block">Name is not valid</div>')
     } else {
-      $('#' + this.id + '').addClass('has-error').children('div.help-block').text('Name is not valid')
+      $(this).addClass('has-error').children('div.help-block').text('Name is not valid')
     }
+		return false;
   } else {
-    $('#' + this.id).parent().removeClass('has-error')
-    $('#' + this.id + ' + div.help-block').remove()
+    $(this).parent().removeClass('has-error')
+    $(this + ' > div.help-block').remove()
+		return true;
   }
 }
 
-$("#submit_button").hover(() => {
-	if (!$("input[type=text]").value = '' || !$("input[type=file]").path = '') {
-		$("#submit_button").attr("disabled", false)
+function checkLink () {
+	if ($(this).value === undefined || $(this).value === '' || /(?:(?:http|https):\/\/)?(?:www\.)?\w+(?:\.\w{2,3})/.test($(this).value)) {
+		return true
+	} else {
+		$(this).parent().append('<div class="help=block">URL not valid</div>')
+	}
+}
+
+$("#submit_button").hover(function () {
+	let textsOk = () => { $("input[type=text]").each(checkText) }
+	let filesOk = () => { $("input[type=file]").each(checkFile) }
+	let urlOk = () => { $("input[type=url]").each(checkLink) }
+	let mailOk = () => { $("input[type=mail]").each(checkMail) }
+	let legalOk = () => { $("#dataPol").is(":checked") }
+	if (filesOk && textsOk && urlOk && mailOk && legalOk) {
+		$('#submit_button').attr('disabled', false)
 	}
 })
 
@@ -53,7 +71,8 @@ function submitForm (e) {
   if (!$('#evaluation_form div').hasClass('has-error') && $("#dataPol").is(":checked")) {
     $('#submit_button').val('Submit')
     $.ajax({
-      url: 'https://bscplantl01.bsc.es/evales/api/results',
+			url: 'localhost:3000',
+      // url: 'https://bscplantl01.bsc.es/evales/api/results',
       type: 'POST',
       data: formData,
       processData: false,

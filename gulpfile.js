@@ -36,8 +36,14 @@ gulp.task('purge_styles', function () {
 
 gulp.task('purgecss', gulp.series('purge_styles', 'purge_bootstrap'))
 
-gulp.task('image', function () {
-  return gulp.src('./views/images/*')
+gulp.task('png', function () {
+  return gulp.src('./views/images/*.png')
+    .pipe(image())
+    .pipe(gulp.dest('./' + build_dir + 'images'))
+})
+
+gulp.task('jpg', function () {
+  return gulp.src('./views/images/*.jpg')
     .pipe(image())
     .pipe(gulp.dest('./' + build_dir + 'images'))
 })
@@ -47,6 +53,8 @@ gulp.task('logo', function () {
 		.pipe(image())
 		.pipe(gulp.dest('./' + build_dir))
 })
+
+gulp.task('image', gulp.series('png', 'jpg', 'logo'))
 
 gulp.task('js', function () {
   return gulp.src('./views/js/*')
