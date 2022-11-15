@@ -4,71 +4,70 @@ function checkMail () {
   if (/[\w-]+@\w+\.\w{2,3}/.test($(this).value)) {
     $('#emailDiv').removeClass('has-error');
     $('#emailDiv > div.help-block').remove();
-  } else {
-    if ($('#emailDiv > div.help-block').length === 0) {
-      $('#emailDiv').addClass('has-error').append('<div class="help-block">Mail ' + $(this).value + ' is not valid</div>');
-    } else {
-      $('#emailDiv').addClass('has-error').children('div.help-block').text('Mail ' + $(this).value + ' is not valid');
-    }
-  }
+		return true;
+  } else if ($('#emailDiv > div.help-block').length === 0) {
+		$('#emailDiv').addClass('has-error').append('<div class="help-block">Mail ' + $(this).value + ' is not valid</div>');
+		return false;
+	}
 }
 
 $('#email').blur(checkMail)
 
 function checkFile () {
-  if (this.path === undefined) {
-    if ($('#' + this.id + ' > div.help-block').length === 0) {
-      $('#' + this.id).parent().addClass('has-error').append('<div class="help-block">File is not valid</div>')
-    } else {
-      $('#' + this.id).addClass('has-error').children('div.help-block').text('File is not valid')
-    }
-  } else {
-    $('#' + this.id).parent().removeClass('has-error')
-    $('#' + this.id + ' + div.help-block').remove()
+  if ($(this).get(0).files.length !== 0) {
+    $('#' + $(this).attr('id')).parent().removeClass('has-error')
+		console.log('this:', this)
+    $(this).parent().children('div.help-block').remove()
+		return true
+	} else if ($(this).parent().children('div.help-block').length === 0) {
+		$(this).parent().addClass('has-error').append('<div class="help-block">File is not valid</div>')
+		return false;
   }
 }
 
 $("input[type=file]").blur(checkFile)
 
 function checkText () {
-  if ($(this).value === undefined || $(this).value == '') {
-    if ($('#' + this.id + ' > div.help-block').length === 0) {
-      $(this).parent().addClass('has-error').append('<div class="help-block">Name is not valid</div>')
-    } else {
-      $(this).addClass('has-error').children('div.help-block').text('Name is not valid')
-    }
-		return false;
-  } else {
+  if ($(this).value !== undefined || $(this).value !== '') {
     $(this).parent().removeClass('has-error')
-    $(this + ' > div.help-block').remove()
+    $(this).parent().children('div.help-block').remove()
 		return true;
+	} else if ($(this).parent().children('div.help-block').length === 0){
+		$(this).addClass('has-error').children('div.help-block').text('Name is not valid')
+		return false;
   }
 }
 
 function checkLink () {
 	if ($(this).value === undefined || $(this).value === '' || /(?:(?:http|https):\/\/)?(?:www\.)?\w+(?:\.\w{2,3})/.test($(this).value)) {
 		return true
-	} else {
+	} else if ($(this).parent().children('div.help-block').length === 0) {
 		$(this).parent().append('<div class="help=block">URL not valid</div>')
+		return false
 	}
 }
 
 $("#submit_button").hover(function () {
-	let textsOk = () => { $("input[type=text]").each(checkText) }
-	let filesOk = () => { $("input[type=file]").each(checkFile) }
-	let urlOk = () => { $("input[type=url]").each(checkLink) }
-	let mailOk = () => { $("input[type=mail]").each(checkMail) }
-	let legalOk = () => { $("#dataPol").is(":checked") }
+	$("input[type=text]").each(checkText)
+	$("input[type=file]").each(checkFile)
+	$("input[type=url]").each(checkLink)
+	$("input[type=email]").each(checkMail)
+	let textsOk = $("input[type=text]").parent().hasClass('has-error') 
+	let filesOk = $("input[type=files]").parent().hasClass('has-error')
+	let urlOk = $("input[type=url]").parent().hasClass('has-error')
+	let mailOk = $("input[type=email]").parent().hasClass('has-error')
+	let legalOk = $("#dataPol").is(":checked")
+	console.log('textsOk, filesOk, urlOk, mailOk, legalOk:', textsOk, filesOk, urlOk, mailOk, legalOk)
 	if (filesOk && textsOk && urlOk && mailOk && legalOk) {
 		$('#submit_button').attr('disabled', false)
 	}
-})
+}, function () {})
 
 function submitForm (e) {
   const formData = new FormData($('#evaluation_form')[0])
   // let mailValid = checkMail(formData.get('email'))
   // let linkValid = checkLink(formData.get('paperLink'))
-  if (!$('#evaluation_form div').hasClass('has-error') && $("#dataPol").is(":checked")) {
+  if (!$('#submit_button').is(':disabled')) {
     $('#submit_button').val('Submit')
     $.ajax({
 			url: 'localhost:3000',
