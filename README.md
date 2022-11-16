@@ -22,4 +22,4 @@ yarn statrt
 
 This project is licensed under the [MIT License](LICENSE).
 
-Copyright (c) 2021 Secretaría de Estado de Digitalización e Inteligencia Artificial (SEDIA)
+Copyright (c) 2022 Secretaría de Estado de Digitalización e Inteligencia Artificial (SEDIA)
