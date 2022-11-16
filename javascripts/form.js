@@ -1,86 +1,110 @@
+// form.js
+// Handles the validation and the form of https://benchmark.plantl.bsc.es/submit.html
+//
+// Made by: Pau Figueras Pavón
+// github: https://github.com/pswsm
+
+// Disables submit button by default
+$('#submit_button').attr('disabled', true)
+
+// Check if mail is valid
 function checkMail () {
-  const mail = $('#email').val()
-  if (/[\w-]+@\w+\.\w{2,3}/.exec(mail) == null) {
-    if ($('#emailDiv > div.help-block').length === 0) {
-      $('#emailDiv').addClass('has-error').append('<div class="help-block">Mail ' + mail + ' is not valid</div>')
-    } else {
-      $('#emailDiv').addClass('has-error').children('div.help-block').text('Mail ' + mail + ' is not valid')
-    }
-  } else {
-    $('#emailDiv').removeClass('has-error')
-    $('#emailDiv > div.help-block').remove()
+  if (/[\w-]+@\w+\.\w{2,3}/.test($(this).get(0).value)) {
+    $(this).parent().removeClass('has-error').children('div.help-block').remove();
+		// return true;
+  } else if ($('#emailDiv > div.help-block').length === 0) {
+		$('#emailDiv').addClass('has-error').append('<div class="help-block">Mail ' + $(this).get(0).value + ' is not valid</div>');
+		// return false;
+	}
+}
+
+
+// Add as blur event
+$('#email').blur(checkMail)
+
+// Check if file fiedl is valid (has a file uploaded)
+function checkFile () {
+  if ($(this).get(0).files.length !== 0) {
+    $(this).parent().removeClass('has-error').children('div.help-block').remove()
+		// return true
+	} else if ($(this).parent().children('div.help-block').length === 0) {
+		$(this).parent().addClass('has-error').append('<div class="help-block">File is not valid</div>')
+		// return false;
   }
 }
 
+// Add as blur event
+$("input[type=file]").blur(checkFile)
+
+// Check text fields not empty
+function checkText () {
+  if ($(this).get(0).value == undefined || $(this).get(0).value == '') {
+		if ($(this).parent().children('div.help-block').length === 0){
+			$(this).parent().addClass('has-error').append('<div class="help-block">Field not valid not valid</div>')
+		}
+	} else {
+    $(this).parent().removeClass('has-error').children('div.help-block').remove()
+    // $(this).parent().children('div.help-block').remove()
+	}
+}
+
+// Add as blur event
+$('input[type=text]').blur(checkText)
+
+
+// Check if URL field is either empty, since it's optional or it's value looks like an url
 function checkLink () {
-  const paperLink = $('#paperLink').val()
-  if (paperLink !== '' && /http[s]?:\/\/[\w-]+\.\w{2,3}[/\w-]*\.?\w{0,4}/.exec(paperLink) == null) {
-    if ($('#paperLinkDiv > div.help-block').length === 0) {
-      $('#paperLinkDiv').addClass('has-error').append('<div class="help-block">Link ' + paperLink + ' is not valid</div>')
-    } else {
-      $('#paperLinkDiv').addClass('has-error').children('div.help-block').text('Link ' + paperLink + ' is not valid')
-    }
-  } else {
-    $('#paperLinkDiv').removeClass('has-error')
-    $('#paperLinkDiv > div.help-block').remove()
-  }
+	// console.log('$(this).get(0).value:', $(this).get(0).value);
+	if ($(this).get(0).value === '' || /(?:(?:http|https):\/\/)?(?:www\.)?\w+(?:\.\w{2,3})/.test($(this).get(0).value)) {
+    $(this).parent().removeClass('has-error').children('div.help-block').remove()
+	} else {
+		if ($(this).parent().children('div.help-block').length === 0) {
+			$(this).parent().addClass('has-error').append('<div class="help-block">URL not valid not valid</div>')
+		}
+	}
 }
 
-function checkFile (sender) {
-  if (sender.path === '') {
-    if ($('#' + sender.id + ' > div.help-block').length === 0) {
-      $('#' + sender.id).parent().addClass('has-error').append('<div class="help-block">File is not valid</div>')
-    } else {
-      $('#' + sender.id + '').addClass('has-error').children('div.help-block').text('File is not valid')
-    }
-  } else {
-    $('#' + sender.id).parent().removeClass('has-error')
-    $('#' + sender.id + ' + div.help-block').remove()
-  }
-}
+// Add as blur event
+$('input[type=url]').blur(checkLink)
 
-function checkText (sender) {
-  if (sender.value === '') {
-    if ($('#' + sender.id + ' > div.help-block').length === 0) {
-      $('#' + sender.id).parent().addClass('has-error').append('<div class="help-block">Name is not valid</div>')
-    } else {
-      $('#' + sender.id + '').addClass('has-error').children('div.help-block').text('Name is not valid')
-    }
-  } else {
-    $('#' + sender.id).parent().removeClass('has-error')
-    $('#' + sender.id + ' + div.help-block').remove()
-  }
-}
-
+// On form submit
 function submitForm (e) {
+	$('#submit_button').val('Submit')
+	$('#evaluation_form').css('display', 'none').parent().append('<img src="../ok.png" alt="Evaluation sent successfully">')
+	$('#evaluation_form + img').css('filter', 'invert(100%)').css('text-align', 'center')
+	$('#evaluation_form + p').css('display', 'none')
+	$('#evaluation_form + h1').text('Thanks for submitting!')
   const formData = new FormData($('#evaluation_form')[0])
-  // let mailValid = checkMail(formData.get('email'))
-  // let linkValid = checkLink(formData.get('paperLink'))
-  if (!$('#evaluation_form div').hasClass('has-error') && $("#dataPol").is(":checked")) {
-    $('#submit_button').val('Submit')
-    $.ajax({
-      url: 'https://bscplantl01.bsc.es/evales/api/results',
-      type: 'POST',
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: submitSuccess,
-      error: submitError
-    })
-  } else {
-    $('#evaluation_form div').each(function () {
-      if ($(this).hasClass('has-error') && $(this).children('div.help-block').length === 0) {
-        $(this).append('<div class="help-block">Field not valid</div>')
-      }
-    })
-  }
+	$.ajax({
+		// url: 'localhost:3000/api/results',
+		url: 'https://bscplantl01.bsc.es/evales/api/results',
+		type: 'POST',
+		data: formData,
+		processData: false,
+		contentType: false,
+		success: submitSuccess,
+		error: submitError
+	})
 }
+
+// On hover submit button, validate all fields too
+$("#submit_button").hover(function () {
+	$("input[type=text]").each(checkText)
+	$("input[type=file]").each(checkFile)
+	$("input[type=url]").each(checkLink)
+	$("input[type=email]").each(checkMail)
+	let textsOk = $("input[type=text]").parent().hasClass('has-error') 
+	let filesOk = $("input[type=files]").parent().hasClass('has-error')
+	let urlOk = $("input[type=url]").parent().hasClass('has-error')
+	let mailOk = $("input[type=email]").parent().hasClass('has-error')
+	let legalOk = $("#dataPol").is(":checked")
+	console.log('textsOk, filesOk, urlOk, mailOk, legalOk:', textsOk, filesOk, urlOk, mailOk, legalOk)
+	if (!(filesOk && textsOk && urlOk && mailOk) && legalOk) {
+		$('#submit_button').attr('disabled', false).click(submitForm)
+	}
+}, function () {})
 
 function submitSuccess () {
-  $('#evaluation_form').css('display', 'none').parent().append('<img src="../ok.png" alt="Evaluation sent successfully">')
-  $('#evaluation_form + img').css('filter', 'invert(100%)').css('text-align', 'center')
-  $('#evaluation_form + p').css('display', 'none')
-  $('#evaluation_form + h1').text('Thanks for submitting!')
 }
 
 function submitError (err) {
