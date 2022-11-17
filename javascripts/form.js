@@ -40,7 +40,7 @@ $("input[type=file]").blur(checkFile)
 function checkText () {
   if ($(this).get(0).value == undefined || $(this).get(0).value == '') {
 		if ($(this).parent().children('div.help-block').length === 0){
-			$(this).parent().addClass('has-error').append('<div class="help-block">Field not valid not valid</div>')
+			$(this).parent().addClass('has-error').append('<div class="help-block">Field not valid</div>')
 		}
 	} else {
     $(this).parent().removeClass('has-error').children('div.help-block').remove()
