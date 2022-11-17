@@ -76,7 +76,7 @@ function submitForm (e) {
 	$('#evaluation_form + h1').text('Thanks for submitting!')
   const formData = new FormData($('#evaluation_form')[0])
 	$.ajax({
-		// url: 'localhost:3000/api/results',
+		// url: 'http://localhost:3000/api/results',
 		url: 'https://bscplantl01.bsc.es/evales/api/results',
 		type: 'POST',
 		data: formData,
@@ -85,6 +85,13 @@ function submitForm (e) {
 		success: submitSuccess,
 		error: submitError
 	})
+}
+
+function submitSuccess () {
+}
+
+function submitError (err) {
+  console.error(err)
 }
 
 // On hover submit button, validate all fields too
@@ -98,15 +105,8 @@ $("#submit_button").hover(function () {
 	let urlOk = $("input[type=url]").parent().hasClass('has-error')
 	let mailOk = $("input[type=email]").parent().hasClass('has-error')
 	let legalOk = $("#dataPol").is(":checked")
-	console.log('textsOk, filesOk, urlOk, mailOk, legalOk:', textsOk, filesOk, urlOk, mailOk, legalOk)
+	// console.log('textsOk, filesOk, urlOk, mailOk, legalOk:', textsOk, filesOk, urlOk, mailOk, legalOk)
 	if (!(filesOk && textsOk && urlOk && mailOk) && legalOk) {
 		$('#submit_button').attr('disabled', false).click(submitForm)
 	}
 }, function () {})
-
-function submitSuccess () {
-}
-
-function submitError (err) {
-  console.error(err)
-}
