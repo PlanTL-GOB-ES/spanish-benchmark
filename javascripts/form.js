@@ -70,7 +70,7 @@ $('input[type=url]').blur(checkLink)
 // On form submit
 function submitForm (e) {
 	$('#submit_button').val('Submit')
-	$('#evaluation_form').css('display', 'none').parent().append('<img src="../ok.png" alt="Evaluation sent successfully">')
+	$('#evaluation_form').css('display', 'none').parent().append('<img src="./images/ok.png" alt="Evaluation sent successfully">')
 	$('#evaluation_form + img').css('filter', 'invert(100%)').css('text-align', 'center')
 	$('#evaluation_form + p').css('display', 'none')
 	$('#evaluation_form + h1').text('Thanks for submitting!')
