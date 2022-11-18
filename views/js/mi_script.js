@@ -9,20 +9,20 @@ function obtainTables () {
 }
 
 function tableSuccess (d) {
-	// console.log('d:', d)
+	console.log('d:', d)
 	const arr = d.map((element) => {
 		return [
 			element.modelName,
 			element.researchGroup,
 			element.url,
 			Number(Number(element.sum) / Number(7)).toPrecision(4).toString(),
-			Number(element.conll_nerc.F1).toPrecision(4).toString(),
-			Number(element.ud_pos.F1).toPrecision(4).toString(),
-			Number(element.mldoc.F1).toPrecision(4).toString(),
-			Number(element.paws_x.F1).toPrecision(4).toString(),
-			Number(element.sts.Combined).toPrecision(4).toString(),
-			Number(element.sqac.F1).toPrecision(4).toString(),
-			Number(element.xnli.Accuracy).toPrecision(4).toString()
+			Number(element["CoNLL-NERC"]["F1"]).toPrecision(4).toString(),
+			Number(element["UD-POS"]["F1"]).toPrecision(4).toString(),
+			Number(element["MLDoc"]["F1"]).toPrecision(4).toString(),
+			Number(element["PAWS-X"]["F1"]).toPrecision(4).toString(),
+			Number(element["STS"]["combined_score"]).toPrecision(4).toString(),
+			Number(element["SQAC"]["f1"]).toPrecision(4).toString(),
+			Number(element["XNLI"]["Accuracy"]).toPrecision(4).toString()
 		]
 	})
 
