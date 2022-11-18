@@ -69,15 +69,13 @@ $('input[type=url]').blur(checkLink)
 
 // On form submit
 function submitForm (e) {
-	$('#submit_button').val('Submit')
-	$('#evaluation_form').css('display', 'none').parent().append('<img src="./images/ok.png" alt="Evaluation sent successfully">')
-	$('#evaluation_form + img').css('filter', 'invert(100%)').css('text-align', 'center')
-	$('#evaluation_form + p').css('display', 'none')
-	$('#evaluation_form + h1').text('Thanks for submitting!')
   const formData = new FormData($('#evaluation_form')[0])
+	$('#submit_button').val('Submit')
+	$('#evaluation_form').parent().empty().append('<h1>Thanks for submitting!</h1><br><img src="./images/ok.png" alt="Evaluation sent successfully">')
+	$('#evaluation_form + img').css('filter', 'invert(100%)').css('text-align', 'center')
 	$.ajax({
-		// url: 'http://localhost:3000/api/results',
-		url: 'https://bscplantl01.bsc.es/evales/api/results',
+		url: 'http://localhost:3000/api/results',
+		// url: 'https://bscplantl01.bsc.es/evales/api/results',
 		type: 'POST',
 		data: formData,
 		processData: false,
@@ -88,6 +86,7 @@ function submitForm (e) {
 }
 
 function submitSuccess () {
+	console.log('Upload okay')
 }
 
 function submitError (err) {
