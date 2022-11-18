@@ -74,8 +74,8 @@ function submitForm (e) {
 	$('#evaluation_form').parent().empty().append('<h1>Thanks for submitting!</h1><br><img src="./images/ok.png" alt="Evaluation sent successfully">')
 	$('#evaluation_form + img').css('filter', 'invert(100%)').css('text-align', 'center')
 	$.ajax({
-		url: 'http://localhost:3000/api/results',
-		// url: 'https://bscplantl01.bsc.es/evales/api/results',
+		// url: 'http://localhost:3000/api/results',
+		url: 'https://bscplantl01.bsc.es/evales/api/results',
 		type: 'POST',
 		data: formData,
 		processData: false,
