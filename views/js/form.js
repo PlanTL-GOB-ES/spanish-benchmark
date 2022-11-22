@@ -71,8 +71,9 @@ $('input[type=url]').blur(checkLink)
 function submitForm (e) {
   const formData = new FormData($('#evaluation_form')[0])
 	$('#submit_button').val('Submit')
-	$('#evaluation_form').parent().empty().append('<h1>Thanks for submitting!</h1><br><img src="./images/ok.png" alt="Evaluation sent successfully">')
 	$('#evaluation_form + img').css('filter', 'invert(100%)').css('text-align', 'center')
+	// Disable button
+	// Toast evaluating...
 	$.ajax({
 		// url: 'http://localhost:3000/api/results',
 		url: 'https://bscplantl01.bsc.es/evales/api/results',
@@ -82,15 +83,20 @@ function submitForm (e) {
 		contentType: false,
 		success: submitSuccess,
 		error: submitError
+		
 	})
 }
 
 function submitSuccess () {
+	$('#evaluation_form').parent().empty().append('<h1>Thanks for submitting!</h1><br><img src="./images/ok.png" alt="Evaluation sent successfully">')
+
 	console.log('Upload okay')
 }
 
 function submitError (err) {
   console.error(err)
+  // Toast error code + detail.
+  // Enable button
 }
 
 // On hover submit button, validate all fields too
