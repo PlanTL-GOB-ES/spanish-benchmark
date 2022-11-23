@@ -70,10 +70,14 @@ $('input[type=url]').blur(checkLink)
 // On form submit
 function submitForm (e) {
   const formData = new FormData($('#evaluation_form')[0])
-	$('#submit_button').val('Submit')
-	$('#evaluation_form + img').css('filter', 'invert(100%)').css('text-align', 'center')
+	$('#submit_button').val('Submit').attr('disabled', true)
+	// $('#evaluation_form + img').css('filter', 'invert(100%)').css('text-align', 'center')
 	// Disable button
 	// Toast evaluating...
+	Toastify({
+		text: "Evaluating...",
+		duration: 10000
+	}).showToast()
 	$.ajax({
 		// url: 'http://localhost:3000/api/results',
 		url: 'https://bscplantl01.bsc.es/evales/api/results',
@@ -97,6 +101,11 @@ function submitError (err) {
   console.error(err)
   // Toast error code + detail.
   // Enable button
+	Toastify({
+		text: "Error while uploading model. Please check all files are well formed.",
+		duration: 3000
+	}).showToast();
+	$('#submit_button').attr('disabled', false);
 }
 
 // On hover submit button, validate all fields too
