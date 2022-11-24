@@ -6,6 +6,7 @@
 
 // Disables submit button by default
 $('#submit_button').attr('disabled', true)
+let onClickAlready = false;
 
 // Check if mail is valid
 function checkMail () {
@@ -76,15 +77,15 @@ function submitForm (e) {
 	// Toast evaluating...
 	Toastify({
 		text: "Evaluating...",
-		duration: 5000,
+		duration: 6000,
 		stopOnFocus: false,
 		style: {
 			background: "#136b82"
 		}
 	}).showToast()
 	$.ajax({
-		// url: 'http://localhost:3000/api/results',
-		url: 'https://bscplantl01.bsc.es/evales/api/results',
+		url: 'http://localhost:3000/api/results',
+		// url: 'https://bscplantl01.bsc.es/evales/api/results',
 		type: 'POST',
 		data: formData,
 		processData: false,
@@ -105,32 +106,46 @@ function submitError (err) {
   console.error(err)
   // Toast error code + detail.
   // Enable button
-	Toastify({
-		text: "Error while uploading model. Please check all files are well formed.",
-		duration: 3000,
-		stopOnFocus: true,
-		style: {
-			background: "#136b82"
-		}
-	}).showToast();
-	$('#submit_button').attr('disabled', false);
+	switch (err.status) {
+		case 500:
+			let responseParsed = JSON.parse(err.responseText)
+			let failedTasks = responseParsed.evaluations_error.join(', ')
+			toast = Toastify({
+				text: failedTasks + " failed, please check the files are the correct ones",
+				duration: 3000,
+				style: { background: "#ff0000" }
+			})
+			break;
+
+		default:
+			toast = Toastify({
+				text: "An unknow error happened, please contact the administrators.",
+				duration: 3000,
+				style: { background: "#ff0000" }
+			})
+			break;
+	}
+	toast.showToast();
+	$('#submit_button').attr('disabled', true);
 }
 
 // On hover submit button, validate all fields too
 $("#submit_button").hover(function () {
-	if ($('#submit_button').is(':disabled')) {
-		$("input[type=text]").each(checkText)
-		$("input[type=file]").each(checkFile)
-		$("input[type=url]").each(checkLink)
-		$("input[type=email]").each(checkMail)
-		let textsOk = $("input[type=text]").parent().hasClass('has-error') 
-		let filesOk = $("input[type=files]").parent().hasClass('has-error')
-		let urlOk = $("input[type=url]").parent().hasClass('has-error')
-		let mailOk = $("input[type=email]").parent().hasClass('has-error')
-		let legalOk = $("#dataPol").is(":checked")
-		// console.log('textsOk, filesOk, urlOk, mailOk, legalOk:', textsOk, filesOk, urlOk, mailOk, legalOk)
-		if (!(filesOk && textsOk && urlOk && mailOk) && legalOk) {
-			$('#submit_button').attr('disabled', false).click(submitForm)
+	$("input[type=text]").each(checkText)
+	$("input[type=file]").each(checkFile)
+	$("input[type=url]").each(checkLink)
+	$("input[type=email]").each(checkMail)
+	let textsOk = $("input[type=text]").parent().hasClass('has-error') 
+	let filesOk = $("input[type=files]").parent().hasClass('has-error')
+	let urlOk = $("input[type=url]").parent().hasClass('has-error')
+	let mailOk = $("input[type=email]").parent().hasClass('has-error')
+	let legalOk = $("#dataPol").is(":checked")
+	// console.log('textsOk, filesOk, urlOk, mailOk, legalOk:', textsOk, filesOk, urlOk, mailOk, legalOk)
+	if (!(filesOk && textsOk && urlOk && mailOk) && legalOk) {
+		$('#submit_button').attr('disabled', false)
+		if (!onClickAlready) {
+			$('#submit_button').click(submitForm);
+			onClickAlready = true;
 		}
 	}
 }, function () {})
