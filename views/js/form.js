@@ -76,7 +76,7 @@ function submitForm (e) {
 	// Toast evaluating...
 	Toastify({
 		text: "Evaluating...",
-		duration: 10000,
+		duration: 5000,
 		stopOnFocus: false,
 		style: {
 			background: "#136b82"
@@ -118,17 +118,19 @@ function submitError (err) {
 
 // On hover submit button, validate all fields too
 $("#submit_button").hover(function () {
-	$("input[type=text]").each(checkText)
-	$("input[type=file]").each(checkFile)
-	$("input[type=url]").each(checkLink)
-	$("input[type=email]").each(checkMail)
-	let textsOk = $("input[type=text]").parent().hasClass('has-error') 
-	let filesOk = $("input[type=files]").parent().hasClass('has-error')
-	let urlOk = $("input[type=url]").parent().hasClass('has-error')
-	let mailOk = $("input[type=email]").parent().hasClass('has-error')
-	let legalOk = $("#dataPol").is(":checked")
-	// console.log('textsOk, filesOk, urlOk, mailOk, legalOk:', textsOk, filesOk, urlOk, mailOk, legalOk)
-	if (!(filesOk && textsOk && urlOk && mailOk) && legalOk) {
-		$('#submit_button').attr('disabled', false).click(submitForm)
+	if ($('#submit_button').is(':disabled')) {
+		$("input[type=text]").each(checkText)
+		$("input[type=file]").each(checkFile)
+		$("input[type=url]").each(checkLink)
+		$("input[type=email]").each(checkMail)
+		let textsOk = $("input[type=text]").parent().hasClass('has-error') 
+		let filesOk = $("input[type=files]").parent().hasClass('has-error')
+		let urlOk = $("input[type=url]").parent().hasClass('has-error')
+		let mailOk = $("input[type=email]").parent().hasClass('has-error')
+		let legalOk = $("#dataPol").is(":checked")
+		// console.log('textsOk, filesOk, urlOk, mailOk, legalOk:', textsOk, filesOk, urlOk, mailOk, legalOk)
+		if (!(filesOk && textsOk && urlOk && mailOk) && legalOk) {
+			$('#submit_button').attr('disabled', false).click(submitForm)
+		}
 	}
 }, function () {})
