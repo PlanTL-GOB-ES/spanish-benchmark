@@ -76,7 +76,11 @@ function submitForm (e) {
 	// Toast evaluating...
 	Toastify({
 		text: "Evaluating...",
-		duration: 10000
+		duration: 10000,
+		stopOnFocus: false,
+		style: {
+			background: "#136b82"
+		}
 	}).showToast()
 	$.ajax({
 		// url: 'http://localhost:3000/api/results',
@@ -103,7 +107,11 @@ function submitError (err) {
   // Enable button
 	Toastify({
 		text: "Error while uploading model. Please check all files are well formed.",
-		duration: 3000
+		duration: 3000,
+		stopOnFocus: true,
+		style: {
+			background: "#136b82"
+		}
 	}).showToast();
 	$('#submit_button').attr('disabled', false);
 }
