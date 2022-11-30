@@ -3,7 +3,7 @@ This website is hosted on the [gh-pages branch](https://github.com/TeMU-BSC/span
 
 ## Build website
 ```sh
-gulp
+gulp all
 ```
 
 ## Run server
