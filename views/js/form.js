@@ -7,6 +7,12 @@
 // Global var to check if an evaluation has been sent
 let evaluationSent = false;
 
+FilePond.create(document.getElementById('pond'), {
+	allowMultiple: true,
+	storeAsFile: true,
+	maxFiles: 7
+})
+
 // Check if mail is valid
 function checkMail () {
 	if (/[\w-]+@\w+\.\w{2,3}/.test($(this).get(0).value)) {
@@ -38,6 +44,35 @@ function checkFile () {
 	} else if ($(this).parent().children('div.help-block').length === 0) {
 		$(this).parent().addClass('has-error').append('<div class="help-block">File is not valid</div>')
 		// return false;
+	}
+}
+
+function checkFileInPond() {
+	let filesPond = new FormData($('form')).getAll('filepond');
+	// let txt_found = 0;
+	// let txt_regex = /[\w\-]+\.txt/;
+	// let json_found = 0;
+	// let json_regex = /[\w\-]+\.json/;
+	let error_files = [];
+	let tasks_txt = { 'conll': false, 'pawsx': false, 'conll': false, 'mldoc': false, 'udpos': false, 'sts': false };
+	let tasks_json = { 'sqac': false };
+	filesPond.forEach(file => {
+		if (file.name.endsWith('.txt')) {
+			Object.keys(tasks_txt).forEach(task => {
+				if (file.name.startsWith(task)) {
+					tasks_txt.task = true;
+				}
+			});
+		} else if (file.name.endsWith('.json')) {
+			tasks_json.forEach(task => {
+				if (file.name.startsWith(task))
+			});
+		}
+	});
+	if (!error_files.length || ) {
+		if ($(this).parent().children('div.help-block').length === 0) {
+			$(this).parent().addClass('has-error').append(`<div class="help-block">Files ${error_files.join(', ')} are not valid</div>`);
+		}
 	}
 }
 

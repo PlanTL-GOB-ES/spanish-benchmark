@@ -9,6 +9,7 @@ block description
 block extralinks
 	link(rel='stylesheet', href='./stylesheets/index.css')
 	// link(rel='stylesheet', href='./stylesheets/input.css')
+	link(rel='stylesheet', href='https://unpkg.com/filepond/dist/filepond.css')
 
 block extrascripts
 	include form_scripts.html
@@ -40,6 +41,9 @@ block content
 								p
 									a(href='./sample_files.zip')
 										| Download sample submission files
+							div.form-group#pondDiv
+								label(for=pond) Pond
+								input#pond(type=file name=pond)
 							div.form-group#conllNercDiv
 								label Upload CoNLL-NERC
 								input(type='file' name='CoNLL-NERC' accept="text/plain" id='CoNLL-NERC' required)
