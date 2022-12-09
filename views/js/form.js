@@ -54,24 +54,21 @@ function checkFileInPond() {
 	// let json_found = 0;
 	// let json_regex = /[\w\-]+\.json/;
 	let error_files = [];
-	let tasks_txt = { 'conll': false, 'pawsx': false, 'conll': false, 'mldoc': false, 'udpos': false, 'sts': false };
-	let tasks_json = { 'sqac': false };
+	let tasks = [false, false, false, false, false, false, false]
+	let tFiles = ['conll_predictions.txt', 'pawsx_predictions.txt', 'conll_predictions.txt', 'mldoc_predictions.txt', 'udpos_predictions.txt', 'sts_predictions.txt', 'sqac_predictions.json'];
 	filesPond.forEach(file => {
-		if (file.name.endsWith('.txt')) {
-			Object.keys(tasks_txt).forEach(task => {
-				if (file.name.startsWith(task)) {
-					tasks_txt.task = true;
-				}
-			});
-		} else if (file.name.endsWith('.json')) {
-			tasks_json.forEach(task => {
-				if (file.name.startsWith(task))
-			});
+		if (tFiles.includes(file)) {
+			tasks[tFiles.indexOf(file)] = true;
 		}
 	});
-	if (!error_files.length || ) {
-		if ($(this).parent().children('div.help-block').length === 0) {
-			$(this).parent().addClass('has-error').append(`<div class="help-block">Files ${error_files.join(', ')} are not valid</div>`);
+	for (const index in tasks) {
+		if (tasks[index] === false) {
+			error_files.push(tFiles[index]);
+		}
+	}
+	if (error_files.length || tFiles.some(task => task === false)) {
+		if ($('#pondDiv').children('div.help-block').length === 0) {
+			$('#pondDiv').addClass('has-error').append(`<div class="help-block">Files ${error_files.join(', ')} are not valid</div>`);
 		}
 	}
 }
@@ -174,6 +171,10 @@ $(document).ready(function () {
 	$('input[type=url]').blur(checkLink)
 	console.log('blur url');
 
+	// Add as blur event
+	$('#actualPond').blur(checkFileInPond)
+	console.log('blur filepond');
+
 	// On hover submit button, validate all fields too
 	console.log('pre focus')
 	$("#submit_button").on('pointerenter', function () {
@@ -186,6 +187,7 @@ $(document).ready(function () {
 		let filesOk = !$("input[type=files]").parent().hasClass('has-error')
 		let urlOk = !$("input[type=url]").parent().hasClass('has-error')
 		let mailOk = !$("input[type=email]").parent().hasClass('has-error')
+		let filepondOk = !$("#pond").parent().parent().hasClass('has-error')
 		let legalOk = $("#dataPol").is(":checked")
 		// console.log('textsOk, filesOk, urlOk, mailOk, legalOk:', textsOk, filesOk, urlOk, mailOk, legalOk)
 		if (!evaluationSent && filesOk && textsOk && urlOk && mailOk && legalOk) {

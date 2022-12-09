@@ -42,8 +42,9 @@ block content
 									a(href='./sample_files.zip')
 										| Download sample submission files
 							div.form-group#pondDiv
-								label(for=pond) Pond
-								input#pond(type=file name=pond)
+								div#actualPond
+									label(for=pond) Pond
+									input#pond(type=file name=pond)
 							div.form-group#conllNercDiv
 								label Upload CoNLL-NERC
 								input(type='file' name='CoNLL-NERC' accept="text/plain" id='CoNLL-NERC' required)
