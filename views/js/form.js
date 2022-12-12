@@ -59,6 +59,9 @@ function checkFileInPond() {
 	filesPond.forEach(file => {
 		if (tFiles.includes(file)) {
 			tasks[tFiles.indexOf(file)] = true;
+			console.log('file:', file)
+		} else if (!tFiles.includes(file)) {
+			error_files.push(`${file} not valid`);
 		}
 	});
 	for (const index in tasks) {
@@ -68,8 +71,11 @@ function checkFileInPond() {
 	}
 	if (error_files.length || tFiles.some(task => task === false)) {
 		if ($('#pondDiv').children('div.help-block').length === 0) {
-			$('#pondDiv').addClass('has-error').append(`<div class="help-block">Files ${error_files.join(', ')} are not valid</div>`);
+			$('#pondDiv').addClass('has-error')
+			$('#pondDiv').insertAfter(`<div class="help-block">Files ${error_files.join(', ')} are not valid</div>`);
 		}
+	} else {
+		$(this).parent().removeClass('has-error').children('div.help-block').remove()
 	}
 }
 
@@ -89,6 +95,7 @@ function checkLink () {
 function submitForm (e) {
 	evaluationSent = true;
 	const formData = new FormData($('#evaluation_form')[0]);
+	console.log('formData:', formData)
 	// Disable button
 	$('#submit_button').val('Submit').attr('disabled', true)
 	// $('#evaluation_form + img').css('filter', 'invert(100%)').css('text-align', 'center')
@@ -102,8 +109,8 @@ function submitForm (e) {
 		}
 	}).showToast()
 	$.ajax({
-		//url: 'http://localhost:3000/api/results',
-		url: 'https://bscplantl01.bsc.es/evales/api/results',
+		url: 'http://localhost:3000/api/results',
+		// url: 'https://bscplantl01.bsc.es/evales/api/results',
 		type: 'POST',
 		data: formData,
 		processData: false,
