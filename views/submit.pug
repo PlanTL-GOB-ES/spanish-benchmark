@@ -44,6 +44,17 @@ block content
 							div.form-group#pondDiv
 								label(for=pond) Pond
 								p All files must be named the same as the example files.
+								p Make sure that each prediction file is named according to the following:
+								br
+								ul
+									li CoNLL-NERC: conll_predictions.txt
+									li UD_POS: udpos_predictions.txt
+									li MLDoc: mldocs_predictions.txt
+									li PAWS-X: pawsx_predictions.txt
+									li STS: sts_predictions.txt
+									li SQAC: sqac_predictions.json
+									li XNLI: xnli_predictions_another_model.txt
+								br
 								input#pond(type=file name=pond)
 							// div.form-group#conllNercDiv
 								// label Upload CoNLL-NERC
