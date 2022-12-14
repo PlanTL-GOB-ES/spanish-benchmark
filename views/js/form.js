@@ -10,7 +10,8 @@ let evaluationSent = false;
 FilePond.create(document.getElementById('pond'), {
 	allowMultiple: true,
 	storeAsFile: true,
-	maxFiles: 7
+	maxFiles: 7,
+	credits: false
 })
 
 // Check if mail is valid
