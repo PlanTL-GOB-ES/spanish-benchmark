@@ -135,43 +135,6 @@ function submitForm (e) {
 	})
 }
 
-// function submitSuccess () {
-// 	$('#evaluation_form').parent().empty().append('<h1>Thanks for submitting!</h1><br><img src="./images/ok.png" alt="Evaluation sent successfully">')
-// 	evalToast.hideToast();
-// 	console.log('Upload okay')
-// 	evaluationSent = false;
-// }
-
-// function submitError (err) {
-// 	console.error(err)
-// 	// Toast error code + detail.
-// 	// Enable button
-// 	switch (err.status) {
-// 		case 400:
-// 			let responseParsed = JSON.parse(err.responseText)
-// 			let failedTasks = responseParsed.evaluations_error.join(', ')
-// 			toast = Toastify({
-// 				text: failedTasks + " failed, please check the file names or their content",
-// 				duration: 8000,
-// 				stopOnFocus: true,
-// 				style: { background: "#ee5757" }
-// 			})
-// 			break;
-//
-// 		default:
-// 			toast = Toastify({
-// 				text: "An unknown error happened, please contact the administrators.",
-// 				duration: 8000,
-// 				stopOnFocus: true,
-// 				style: { background: "#ee5757" }
-// 			})
-// 			break;
-// 	}
-// 	toast.showToast();
-// 	$('#submit_button').attr('disabled', true);
-// 	evaluationSent = false;
-// }
-
 $(document).ready(function () {
 	// Disables submit button by default
 	$('#submit_button').attr('disabled', true)
