@@ -89,8 +89,8 @@ function submitForm (e) {
 	}).showToast()
 
 	$.ajax({
-		url: 'http://localhost:3000/api/results',
-		// url: 'https://bscplantl01.bsc.es/evales/api/results',
+		// url: 'http://localhost:3000/api/results',
+		url: 'https://bscplantl01.bsc.es/evales/api/results',
 		type: 'POST',
 		data: formData,
 		processData: false,
