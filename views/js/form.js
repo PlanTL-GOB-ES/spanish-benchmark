@@ -116,17 +116,19 @@ function submitError (err) {
 			let responseParsed = JSON.parse(err.responseText)
 			let failedTasks = responseParsed.evaluations_error.join(', ')
 			toast = Toastify({
-				text: failedTasks + " failed, please check the files are the correct ones",
-				duration: 3000,
-				style: { background: "#f00" }
+				text: failedTasks + " failed, please check the files name or content",
+				duration: 8000,
+				stopOnFocus: true,
+				style: { background: "#ee5757" }
 			})
 			break;
 
 		default:
 			toast = Toastify({
-				text: "An unknow error happened, please contact the administrators.",
-				duration: 3000,
-				style: { background: "#ff0000" }
+				text: "An unknown error happened, please contact the administrators.",
+				duration: 8000,
+				stopOnFocus: true,
+				style: { background: "#ee5757" }
 			})
 			break;
 	}
