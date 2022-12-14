@@ -36,46 +36,15 @@ function checkText () {
 	}
 }
 
-// Check if file field is valid (has a file uploaded)
-function checkFile () {
-	if ($(this).get(0).files.length !== 0) {
-		$(this).parent().removeClass('has-error').children('div.help-block').remove()
-		// return true
-	} else if ($(this).parent().children('div.help-block').length === 0) {
-		$(this).parent().addClass('has-error').append('<div class="help-block">File is not valid</div>')
-		// return false;
-	}
-}
-
 function checkFileInPond() {
-	let filesPond = new FormData($('form')).getAll('filepond');
-	// let txt_found = 0;
-	// let txt_regex = /[\w\-]+\.txt/;
-	// let json_found = 0;
-	// let json_regex = /[\w\-]+\.json/;
-	let error_files = [];
-	let tasks = [false, false, false, false, false, false, false]
-	let tFiles = ['conll_predictions.txt', 'pawsx_predictions.txt', 'conll_predictions.txt', 'mldoc_predictions.txt', 'udpos_predictions.txt', 'sts_predictions.txt', 'sqac_predictions.json'];
-	filesPond.forEach(file => {
-		if (tFiles.includes(file)) {
-			tasks[tFiles.indexOf(file)] = true;
-			console.log('file:', file)
-		} else if (!tFiles.includes(file)) {
-			error_files.push(`${file} not valid`);
-		}
-	});
-	for (const index in tasks) {
-		if (tasks[index] === false) {
-			error_files.push(tFiles[index]);
-		}
-	}
-	if (error_files.length || tFiles.some(task => task === false)) {
+	let filesPond = new FormData($('form')[0]).getAll('filepond');
+	if (filesPond.length === 7) {
+		$('#pondDiv').removeClass('has-error').children('div.help-block').remove()
+	} else {
 		if ($('#pondDiv').children('div.help-block').length === 0) {
 			$('#pondDiv').addClass('has-error')
-			$('#pondDiv').insertAfter(`<div class="help-block">Files ${error_files.join(', ')} are not valid</div>`);
+			$('#pondDiv').append(`<div class="help-block">Missing files</div>`);
 		}
-	} else {
-		$(this).parent().removeClass('has-error').children('div.help-block').remove()
 	}
 }
 
@@ -91,11 +60,20 @@ function checkLink () {
 	}
 }
 
+function checkChecked() {
+	if ($(this).is(':checked')) {
+		$(this).parent().removeClass('has-error').children('div.help-block').remove();
+	} else {
+		if ($(this).parent().children('div.help-block').length === 0) {
+			$(this).parent().addClass('has-error').append('<div class="help-block">Please accept the data policy to submit</div>')
+		}
+	}
+}
+
 // On form submit
 function submitForm (e) {
 	evaluationSent = true;
 	const formData = new FormData($('#evaluation_form')[0]);
-	console.log('formData:', formData)
 	// Disable button
 	$('#submit_button').val('Submit').attr('disabled', true)
 	// $('#evaluation_form + img').css('filter', 'invert(100%)').css('text-align', 'center')
@@ -110,7 +88,7 @@ function submitForm (e) {
 	}).showToast()
 	$.ajax({
 		// url: 'http://localhost:3000/api/results',
-		url: process.env.API_URL,
+		url: 'https://bscplantl01.bsc.es/evales/api/results',
 		type: 'POST',
 		data: formData,
 		processData: false,
@@ -157,47 +135,36 @@ function submitError (err) {
 }
 
 $(document).ready(function () {
-	console.log('okay');
 	// Disables submit button by default
 	$('#submit_button').attr('disabled', true)
 	let onClickAlready = false;
 
 	// Add as blur event
 	$('#email').blur(checkMail)
-	console.log('blur mail');
-
-	// Add as blur event
-	$("input[type=file]").blur(checkFile)
-	console.log('blur files');
 
 	// Add as blur event
 	$('input[type=text]').blur(checkText)
-	console.log('blur text');
 
 	// Add as blur event
 	$('input[type=url]').blur(checkLink)
-	console.log('blur url');
 
 	// Add as blur event
 	$('#actualPond').blur(checkFileInPond)
-	console.log('blur filepond');
 
 	// On hover submit button, validate all fields too
-	console.log('pre focus')
 	$("#submit_button").on('pointerenter', function () {
-		console.log('in focus')
 		$("input[type=text]").each(checkText)
-		$("input[type=file]").each(checkFile)
 		$("input[type=url]").each(checkLink)
 		$("input[type=email]").each(checkMail)
+		$("#pond").each(checkFileInPond)
+		$('#dataPol').each(checkChecked)
 		let textsOk = !$("input[type=text]").parent().hasClass('has-error') 
-		let filesOk = !$("input[type=files]").parent().hasClass('has-error')
 		let urlOk = !$("input[type=url]").parent().hasClass('has-error')
 		let mailOk = !$("input[type=email]").parent().hasClass('has-error')
-		let filepondOk = !$("#pond").parent().parent().hasClass('has-error')
+		let filepondOk = !$("#pondDiv").hasClass('has-error')
 		let legalOk = $("#dataPol").is(":checked")
 		// console.log('textsOk, filesOk, urlOk, mailOk, legalOk:', textsOk, filesOk, urlOk, mailOk, legalOk)
-		if (!evaluationSent && filesOk && textsOk && urlOk && mailOk && legalOk) {
+		if (!evaluationSent && filepondOk && textsOk && urlOk && mailOk && legalOk) {
 			$('#submit_button').attr('disabled', false)
 			if (!onClickAlready) {
 				$('#submit_button').click(submitForm);
