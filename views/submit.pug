@@ -42,10 +42,9 @@ block content
 									a(href='./sample_files.zip')
 										| Download sample submission files
 							div.form-group#pondDiv
-								label(for=pond) Pond
-								p All files must be named the same as the example files.
+								label(for=pond) Prediction files:
+								p See the sample files for a hint on naming them.
 								p Make sure that each prediction file is named according to the following:
-								br
 								ul
 									li CoNLL-NERC: conll_predictions.txt
 									li UD_POS: udpos_predictions.txt
@@ -53,30 +52,9 @@ block content
 									li PAWS-X: pawsx_predictions.txt
 									li STS: sts_predictions.txt
 									li SQAC: sqac_predictions.json
-									li XNLI: xnli_predictions_another_model.txt
+									li XNLI: xnli_predictions.txt
 								br
 								input#pond(type=file name=pond)
-							// div.form-group#conllNercDiv
-								// label Upload CoNLL-NERC
-								// input(type='file' name='CoNLL-NERC' accept="text/plain" id='CoNLL-NERC' required)
-							// div.form-group#udPosDiv
-								// label Upload UD-POS
-								// input(type='file' name='UD-POS' accept="text/plain" id='UD_POS' required)
-							// div.form-group#mldocDiv
-								// label Upload MLDoc
-								// input(type='file' name='MLDoc' accept="text/plain" id='MLDoc' required)
-							// div.form-group#pawsxDiv
-								// label Upload PAWS-X
-								// input(type='file' name='PAWS-X' accept="text/plain" id='PAWS-X' required)
-							// div.form-group#stsDiv
-								// label Upload STS
-								// input(type='file' name='STS' accept="text/plain" id='STS' required)
-							// div.form-group#sqacDiv
-								// label Upload SQAC
-								// input(type='file' name='SQAC' accept=".json" id='SQAC' required)
-							// div.form-group#xnliDiv
-								// label Upload XNLI
-								// input(type='file' name='XNLI' accept="text/plain" id='XNLI' required)
 							hr
 							div.checkbox#privacyPolicy
 								label
@@ -84,5 +62,5 @@ block content
 									| I accept the 
 									a(href="https://www.bsc.es/legal-notice" target="_blank") data policy*
 							div#submitResults
-								// p
 								button.submitButton#submit_button(type='button') Submit
+							div.has-error.help-block
