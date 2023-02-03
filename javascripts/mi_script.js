@@ -1,6 +1,7 @@
 function obtainTables () {
 	$.ajax({
 		url: 'https://bscplantl01.bsc.es/evales/api/tables',
+		// url: 'http://localhost:3000/api/tables',
 		dataType: 'json',
 		// contentType: "application/json",
 		success: tableSuccess,
@@ -15,14 +16,15 @@ function tableSuccess (d) {
 			element.modelName,
 			element.researchGroup,
 			element.url,
-			Number(Number(element.sum) / Number(7)).toPrecision(4).toString(),
+			Number(Number(element.sum) / Number(8)).toPrecision(4).toString(),
 			Number(element["CoNLL-NERC"]["F1"]).toPrecision(4).toString(),
 			Number(element["UD-POS"]["F1"]).toPrecision(4).toString(),
 			Number(element["MLDoc"]["F1"]).toPrecision(4).toString(),
 			Number(element["PAWS-X"]["F1"]).toPrecision(4).toString(),
 			Number(element["STS"]["combined_score"]).toPrecision(4).toString(),
 			Number(element["SQAC"]["f1"]).toPrecision(4).toString(),
-			Number(element["XNLI"]["Accuracy"]).toPrecision(4).toString()
+			Number(element["XNLI"]["Accuracy"]).toPrecision(4).toString(),
+			Number(element["Massive"]["Accuracy"]).toPrecision(4).toString()
 		]
 	})
 
@@ -38,7 +40,8 @@ function tableSuccess (d) {
 		'PAWS-X (F1)',
 		'STS (Comb.)',
 		'SQAC (F1)',
-		'XNLI (Acc.)'
+		'XNLI (Acc.)',
+		'Massive (Acc.)'
 	]
 	const idHref = [
 		'',
@@ -52,7 +55,8 @@ function tableSuccess (d) {
 		'pawsx',
 		'sts',
 		'qa',
-		'xnli'
+		'xnli',
+		'massive'
 	]
 
 	let innerTable = '<table id="table" class="performanceTable table">'

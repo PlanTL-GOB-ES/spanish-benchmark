@@ -10,7 +10,10 @@ let evaluationSent = false;
 FilePond.create(document.getElementById('pond'), {
 	allowMultiple: true,
 	storeAsFile: true,
-	maxFiles: 7,
+	dropOnPage: true,
+	maxFiles: 8,
+	maxTotalFileSize: "20MB",
+	acceptedFileTypes: ['application/json', "text/plain"],
 	credits: false
 })
 
@@ -39,7 +42,7 @@ function checkText () {
 
 function checkFileInPond() {
 	let filesPond = new FormData($('form')[0]).getAll('filepond');
-	if (filesPond.length === 7) {
+	if (filesPond.length === 8) {
 		$('#pondDiv').removeClass('has-error').children('div.help-block').remove()
 	} else {
 		if ($('#pondDiv').children('div.help-block').length === 0) {
@@ -79,14 +82,17 @@ function submitForm (e) {
 	$('#submit_button').val('Submit').attr('disabled', true)
 	// $('#evaluation_form + img').css('filter', 'invert(100%)').css('text-align', 'center')
 	// Toast evaluating...
+
 	const evalToast = Toastify({
-		text: "Evaluating...",
+		text: "Evaluating, please wait ...",
 		duration: -1,
-		stopOnFocus: false,
+		gravity: "bottom", // `top` or `bottom`
+		position: "center", // `left`, `center` or `right`
 		style: {
-			background: "#136b82"
+			background: "#136b82",
+			"font-weight": 800
 		}
-	}).showToast()
+	}).showToast();
 
 	$.ajax({
 		// url: 'http://localhost:3000/api/results',
@@ -114,7 +120,12 @@ function submitForm (e) {
 						text: failedTasks + " failed, please check the file names or their content",
 						duration: 8000,
 						stopOnFocus: true,
-						style: { background: "#ee5757" }
+						gravity: "bottom", // `top` or `bottom`
+						position: "center", // `left`, `center` or `right`
+						style: {
+							background: "#ee5757",
+							"font-weight": 800
+						}
 					})
 					break;
 
@@ -123,7 +134,12 @@ function submitForm (e) {
 						text: "An unknown error happened, please contact the administrators.",
 						duration: 8000,
 						stopOnFocus: true,
-						style: { background: "#ee5757" }
+						gravity: "bottom", // `top` or `bottom`
+						position: "center", // `left`, `center` or `right`
+						style: {
+							background: "#ee5757",
+							"font-weight": 800
+						}
 					})
 					break;
 			}
@@ -134,43 +150,6 @@ function submitForm (e) {
 		
 	})
 }
-
-// function submitSuccess () {
-// 	$('#evaluation_form').parent().empty().append('<h1>Thanks for submitting!</h1><br><img src="./images/ok.png" alt="Evaluation sent successfully">')
-// 	evalToast.hideToast();
-// 	console.log('Upload okay')
-// 	evaluationSent = false;
-// }
-
-// function submitError (err) {
-// 	console.error(err)
-// 	// Toast error code + detail.
-// 	// Enable button
-// 	switch (err.status) {
-// 		case 400:
-// 			let responseParsed = JSON.parse(err.responseText)
-// 			let failedTasks = responseParsed.evaluations_error.join(', ')
-// 			toast = Toastify({
-// 				text: failedTasks + " failed, please check the file names or their content",
-// 				duration: 8000,
-// 				stopOnFocus: true,
-// 				style: { background: "#ee5757" }
-// 			})
-// 			break;
-//
-// 		default:
-// 			toast = Toastify({
-// 				text: "An unknown error happened, please contact the administrators.",
-// 				duration: 8000,
-// 				stopOnFocus: true,
-// 				style: { background: "#ee5757" }
-// 			})
-// 			break;
-// 	}
-// 	toast.showToast();
-// 	$('#submit_button').attr('disabled', true);
-// 	evaluationSent = false;
-// }
 
 $(document).ready(function () {
 	// Disables submit button by default
