@@ -1,5 +1,6 @@
-API_URL ?= https://https://bscplantl01.bsc.es/evales/api/results
 serve:
-	rm -rf ./spanish-benchmark && make build && gulp connect
+	gulp connect
 build:
-	API_URL=$(API_URL) gulp all
+	gulp all
+clean:
+	rm -rf ./spanish-benchmark

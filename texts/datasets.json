@@ -45,5 +45,11 @@
 		"text": "For Textual Entailment, we use the Spanish part of the Cross-Lingual NLI Corpus (XNLI) (Conneau et al., 2018). This evaluation corpus consists of a collection 400,202 sentences, annotated with textual entailment via crowdsourcing.",
 		"id": "xnli",
 		"link": "https://huggingface.co/datasets/xnli"
+	},
+	"massive": {
+		"title": "Massive",
+		"text": "MASSIVE is a parallel dataset of > 1M utterances across 51 languages with annotations for the Natural Language Understanding tasks of intent prediction and slot annotation. Utterances span 60 intents and include 55 slot types. MASSIVE was created by localizing the SLURP dataset, composed of general Intelligent Voice Assistant single-shot interactions.",
+		"id": "massive",
+		"link": "https://huggingface.co/datasets/AmazonScience/massive"
 	}
 }
